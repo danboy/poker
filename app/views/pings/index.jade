@@ -1,0 +1,10 @@
+h1 Index
+script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
+script
+  var sock = new SockJS('http://rsp.pinmonkey.com:3000/sock');
+  sock.onopen = function() {
+    console.log('open');
+  };
+  sock.onmessage = function(e) {
+    console.log(' [ ] received: ' + JSON.stringify(e.data));
+  };

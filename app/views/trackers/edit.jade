@@ -1,0 +1,13 @@
+form( action='/users/update', method='post' )
+  input(type='hidden', name='_method', value='PUT')
+  div
+    label( for='name' ) full name
+    input( name='user[name]', value='#{name}' )
+  div
+    label( for='login' ) login
+    input( name='user[login]', value='#{login}', readonly='true' )
+  div
+    label( for='password' ) password
+    input( name='user[password]' )
+  div.submit
+    input( type='submit' )

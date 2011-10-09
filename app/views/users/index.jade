@@ -1,0 +1,7 @@
+h1 #{total} Users
+ul
+  each user in users
+    li
+      = user.name + " "
+      a( href='/users/#{user.login}' ) (#{user.login})
+      a( href='/users/#{user.id}' ) (X)

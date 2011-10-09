@@ -1,0 +1,178 @@
+body {
+  padding:0;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+body section,
+body header{
+  width: 480px;
+  margin: 0 auto;
+}
+header h1{
+  display: inline-block;
+  border: 1px solid #DDD;
+  background: #EEE;
+  border-radius: 2px;
+  height: 80px;
+  line-height: 80px;
+  padding: 0 20px;
+}
+
+header h1 a{
+  text-decoration: none;
+}
+header menu{
+  margin: 0;
+  padding: 5px  0;
+  text-align: right;
+}
+
+header menu li{
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+  margin: 0 2px;
+  line-height: 36px;
+  text-align: center;
+}
+
+a{
+  color: #C00;
+}
+
+a:visited{
+  color: #C33;
+}
+
+.button{
+  display: inline-block;
+  border: 1px solid #DDD;
+  background: #EEE;
+  border-radius: 2px;
+  height: 32px;
+  overflow: none;
+  vertical-align: top;
+  line-height: 32px;
+  padding: 0 4px;
+  margin: 2px 0 2px 4px;
+  color: #900;
+  text-decoration: none;
+  transition: border 2s;
+  -moz-transition: border 2s; /* Firefox 4 */
+  -webkit-transition: border 2s; /* Safari and Chrome */
+  -o-transition: border 2s; /* Opera */
+}
+
+.button:hover{
+  border: 1px solid #999;
+}
+
+.button.opt{
+  margin: 2px 0;
+  border-radius: 0;
+}
+
+.button.opt:first-child{
+  border-radius: 2px;
+  border-top-right-radius: 0;  
+  border-bottom-right-radius: 0;  
+}
+
+h1 a.button{
+  font-size: 11px;
+  text-decoration: none;
+  color: #900;
+  height: 16px;
+  line-height: 18px;
+  margin:6px 8px;
+  border-color: #c99;
+}
+
+/* FORMS */
+
+form{
+  border: 1px solid #CCC;
+  background: #FFF;
+  border-radius: 2px;
+  padding: 20px;
+  width: 400px;
+  margin: 0 auto;
+  background-image: linear-gradient(bottom, rgb(200,200,200) 11%, rgb(255,255,255) 56%);
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgb(245,245,245)), to(rgb(255,255,255)));
+}
+
+form div{
+  padding: 10px;
+}
+
+form div label{
+  display: inline-block;
+  min-width: 120px;
+}
+
+form div input{
+  display: inline-block;
+  border: 1px solid #DDD;
+  background: #EEE;
+  border-radius: 2px;
+  height: 32px;
+  overflow: none;
+  vertical-align: top;
+  line-height: 32px;
+  padding: 0 4px;
+  margin: 2px 0 2px 4px;
+  text-decoration: none;
+  color: #333;
+  outline: none;
+  transition: border 1s;
+  -moz-transition: border 1s;
+  -webkit-transition: border 1s;
+  -o-transition: border 1s;
+  
+}
+
+form div input:focus{
+  border: 1px solid #333;
+  color: #900;
+
+}
+
+form div input[type="submit"]{
+  border: 0;
+  padding: 0 12px;
+  margin-top: 20px;
+  background: #900;
+  color: #fff;
+  font-weight: bold;
+  transition: background 1s;
+  -moz-transition: background 1s;
+  -webkit-transition: background 1s;
+  -o-transition: background 1s;
+  border-radius: 3px;
+}
+
+form div.submit{
+  text-align: right;
+}
+
+form div input[type="submit"]:hover{
+  background: #C33;
+}
+
+form.step2{display:none;}
+/* 960px */
+@media only screen and (min-width: 480px) {
+
+
+}
+
+@media only screen and (min-width: 900px) {
+  body section,
+  body header{
+    width: 960px;
+  }
+  form{
+    width: 400px;
+    margin: 0 auto;
+  }
+}

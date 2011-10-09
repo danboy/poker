@@ -1,0 +1,12 @@
+form( action='/users', method='post' )
+  div
+    label( for='name' ) full name
+    input( name='user[name]' )
+  div
+    label( for='login' ) login
+    input( name='user[login]' )
+  div
+    label( for='password' ) password
+    input( name='user[password]' )
+  div.submit
+    input( type='submit' )

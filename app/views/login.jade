@@ -1,0 +1,9 @@
+form( action='/login', method='post' )
+  div
+    label( for='login' ) login
+    input( name='user[login]' )
+  div
+    label( for='password' ) password
+    input( name='user[password]' )
+  div.submit
+    input( type='submit', value='login' )

@@ -1,0 +1,9 @@
+form( action='/login', method='post' )
+  div
+    label( for='login' ) login
+    input( name=everyauth.password.loginFormFieldName)
+  div
+    label( for='password' ) password
+    input( name=everyauth.password.passwordFormFieldName )
+  div.submit
+    input( type='submit' , value='login')

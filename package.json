@@ -1,0 +1,15 @@
+{
+    "name": "application-name"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": "2.4.3"
+    , "express-resource": ">= 0.0.1"
+    , "underscore": ">= 0.0.1"
+    , "everyauth": ">= 0.0.1"
+    , "mongoose": ">= 0.0.1"
+    , "express-mongoose": ">= 0.0.1"
+    , "sockjs": ">= 0.0.1"
+    , "sass": ">= 0.0.1"
+  }
+}

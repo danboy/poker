@@ -1,0 +1,15 @@
+menu
+  - if (everyauth.loggedIn)
+    li
+      a.button(href="/users/#{user.login}") my profile
+  li
+    - if (everyauth.loggedIn)
+      a.button(href="/logout") logout
+    - else
+      a.button.opt(href="/login") login
+      a.button.opt(href="/auth/twitter")
+        img(style='border: 0px', src='/img/twitter.png')
+  - if (!everyauth.loggedIn)
+    li
+      | or
+      a.button( href="/users/new" ) sign up
