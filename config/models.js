@@ -14,7 +14,7 @@ module.exports = {
   schemas: [
     { name: 'User', 
       schema: {
-          login     : { type: String, required: true}
+          login     : { type: String, required: true, unique: true}
         , password    : String
         , name        : String
         , uid         : String

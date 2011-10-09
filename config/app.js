@@ -11,8 +11,6 @@ module.exports.config = function(c){
     , app: app
   });
 
-  //require( './routes.js' ).routes(c);
-  console.log(RedisStore);
   app.configure(function(){
     app.set('views', c.paths.views);
     app.set('view engine', 'jade');

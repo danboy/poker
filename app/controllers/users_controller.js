@@ -92,16 +92,8 @@ var actions = {
 
   //Destroy
   destroy: function( req, res ){
-    User.findById( req.params.id , function(err,user){
-      if(!err){
-        user.remove();
-        user.save();
-      }
-      res.render('users/destroy',{
-          title: 'Users'
-        , user: user.name
-        , message: 'user was deleted'
-      });
+    User.remove( {login: req.params.user}, function(err,user){
+      res.redirect('/users');
     });
   }
 

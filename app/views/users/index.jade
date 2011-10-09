@@ -4,4 +4,6 @@ ul
     li
       = user.name + " "
       a( href='/users/#{user.login}' ) (#{user.login})
-      a( href='/users/#{user.id}' ) (X)
+      form(action='/users/#{user.login}', method='post')
+        input(type='hidden', name='_method', value='DELETE')
+        input.button(type='submit')

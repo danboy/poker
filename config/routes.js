@@ -9,6 +9,7 @@ module.exports = {
     app.resource("users", require( conf.paths.controllers + '/users_controller.js' ))
     trackerResources = app.resource("trackers", trackers);
     trackerResources.map('post', '/get_token', trackers.getToken);
+    trackerResources.map('post', '/get_iteration', trackers.getIteration);
 
   }
 };

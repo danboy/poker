@@ -1,4 +1,35 @@
-h1= tracker.name
-dl
+h1#click= tracker.name
+dl#project
   dt Velocity
   dd= tracker.current_velocity
+  dt Iteration Finish
+  - var finish = new Date(iteration.finish.$t);
+  dd
+    = finish.toDateString();
+p.opt_list
+  |Toggle:
+  a.button.opt.toggle('data-element'='.accepted') accepted
+  a.button.opt.toggle('data-element'='.delivered') delivered
+  a.button.opt.toggle('data-element'='.finished') finished
+  a.button.opt.toggle('data-element'='.feature') feature
+  a.button.opt.toggle('data-element'='.bug') bug
+  a.button.opt.toggle('data-element'='.chore') chore
+  a.button.opt.toggle('data-element'='header') header
+ul#stories
+  each story in stories
+    li(class='#{story.story_type} #{story.current_state}')
+      - if(story.estimate != undefined)
+        a.estimate
+          - if(story.estimate.$t == '-1')
+            |estimate
+          - else
+            = story.estimate['$t']+" points"
+      - else
+        a.type= story.story_type
+      a(href='#{story.url}')= story.name
+script(type='text/javascript')
+  $('.toggle').click(function(ev){
+    ev.preventDefault();
+    $($(this).data('element')).toggle();
+    $(this).toggleClass('off');
+  });
