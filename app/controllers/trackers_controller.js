@@ -33,7 +33,6 @@ var actions = {
   show: function( req, res){
     Pivotal.getProject(req.params.tracker,req.user.token,function(tracker){
       Pivotal.getCurrentIteration(req.params.tracker,req.user.token,function(results){
-        console.log(results.iterations.iteration[0].stories.story);
         res.render('trackers/show',{
           title: 'Projects'
         , tracker: tracker.project
@@ -46,9 +45,7 @@ var actions = {
 
   getIteration: function( req, res){
     Pivotal.getProject(req.body.tracker,req.user.token,function(project){
-        console.log(project)
       Pivotal.getCurrentIteration(req.body.tracker,req.user.token,function(iterations){
-        console.log(project,iterations)
         res.send({
           project: project
         , iterations: iterations  

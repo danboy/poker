@@ -35,3 +35,18 @@ script(type='text/javascript')
     $($(this).data('element')).toggle();
     $(this).toggleClass('off');
   });
+  /*
+  setTimeout(function(){
+    toggled = ''
+    $('.off').each(function(){
+      toggled+= $(this).data('element')+';'
+    });
+    document.location.href = '#'+toggled;
+  },5000);
+  $(function(){
+    toggled = document.location.href.split('#')[1]
+    buttons = toggled.split(';');
+    $(buttons).each(function(b){
+      $(b).toggle();
+    });
+  })*/
