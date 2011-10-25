@@ -1,0 +1,8 @@
+Pivotal Planner
+===============
+
+1. clone it
+2. npm install -d
+3. npm update
+4. Install redis/mongo
+5. node app.js
