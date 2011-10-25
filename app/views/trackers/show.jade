@@ -19,7 +19,7 @@ p.opt_list
   a.button.opt.toggle('data-element'='header') header
 ul#stories
   each story in stories
-    li(class='#{story.story_type} #{story.current_state}')
+    li(class='story #{story.story_type} #{story.current_state}')
       - if(story.estimate != undefined)
         a.estimate
           - if(story.estimate.$t == '-1')
@@ -29,6 +29,12 @@ ul#stories
       - else
         a.type= story.story_type
       a(href='#{story.url}')= story.name
+      .description
+        = story.description
+        - if(story.notes != undefined)
+          - each note in story.notes.note
+            p.note= note.text
+              a= note.author
 script(type='text/javascript')
   $('.toggle').click(function(ev){
     ev.preventDefault();
@@ -50,3 +56,7 @@ script(type='text/javascript')
       $(b).toggle();
     });
   })*/
+  $('.story').click(function(ev){
+    $(this).children('.description').toggle();
+    console.log(this);
+  });

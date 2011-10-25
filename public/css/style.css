@@ -289,6 +289,24 @@ ul#stories li{
   margin: 0 5px;
   min-width: 80px;
 }
+
+#stories li .description{
+  display: none;
+  background-color: #fff;
+  border: 1px solid #999;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+#stories li .description .note{
+  background-color: #FFC;
+  border: 1px solid #999;
+  margin: 5px;
+  padding: 5px;
+}
+
 ul#trackers{
   list-style: none;
   margin: 0;
