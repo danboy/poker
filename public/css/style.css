@@ -298,15 +298,62 @@ ul#stories li{
   padding: 5px;
   border-radius: 3px;
   text-decoration: none;
+  position: relative;
+  z-index:0;
 }
 
 #stories li .description .note{
-  background-color: #FFC;
-  border: 1px solid #999;
-  margin: 5px;
-  padding: 5px;
+  border: 1px solid #DDA;
+  margin: 10px 10px 20px;
+  padding: 10px;
+  display: block;
+  position: relative;
+  background-image:-moz-linear-gradient(center bottom, #f8f8C8 11%, #ffc 56%);
+  background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.11, #f8f8C8), color-stop(0.56, #ffc));
+  -moz-box-shadow:0 0 2px rgba(0, 0, 0, 0.2),0 0 65px #EEB inset, 0 0 20px #f9f9C9 inset;
+  -webkit-box-shadow:0 0 2px rgba(0, 0, 0, 0.2),0 0 65px #EEB inset, 0 0 20px #f9f9C9 inset;
+  box-shadow:0 0 2px rgba(0, 0, 0, 0.2),0 0 65px #EEB inset, 0 0 20px #f9f9C9 inset;
 }
 
+#stories li .description .note:first-child{
+  clear: left;
+}
+
+#stories li .description .note:before,
+#stories li .description .note:after{
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: 15px;
+  left: 5px;
+  width: 50%;
+  height: 20%;
+  -webkit-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
+
+#stories li .description .note:after{
+  right: 5px;
+  left: auto;
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  -o-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
+
+#stories li .description .note a{
+  display: block;
+  clear: both;
+  float: right;
+  margin: 10px 0 0;
+  color: #999;
+  text-transform: capitalize;
+}
 ul#trackers{
   list-style: none;
   margin: 0;
