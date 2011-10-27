@@ -30,7 +30,8 @@ ul#stories
         a.type= story.story_type
       a(href='#{story.url}')= story.name
       .description
-        = story.description
+        - if(typeof(story.description) == "string")
+          = story.description
         - if(story.notes != undefined)
           - each note in story.notes.note
             p.note= note.text
