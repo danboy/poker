@@ -6,6 +6,7 @@ dl#project
   - var finish = new Date(iteration.finish.$t);
   dd
     = finish.toDateString();
+    small= " ("+daysLeft(iteration.finish.$t)+ " days left)";
 p.opt_list
   |Toggle:
   a.button.opt.toggle('data-element'='.accepted') accepted

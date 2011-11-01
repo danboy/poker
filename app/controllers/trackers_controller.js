@@ -38,6 +38,13 @@ var actions = {
         , tracker: tracker.project
         , iteration: results.iterations.iteration[0]
         , stories: results.iterations.iteration[0].stories.story
+        , daysLeft: function(time){
+            now = new Date();
+            when = new Date(time);
+            diff = when.getTime() - now.getTime();
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            return days+1;
+          }
         });
       });
     });
@@ -59,6 +66,8 @@ var actions = {
       res.send({token: token});
     });
   
+  },
+  daysLeft: function(time){
   }
 }
 module.exports = actions;

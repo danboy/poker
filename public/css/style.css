@@ -84,7 +84,7 @@ p.opt_list{
 
 a.button.opt.off{
   background: none;
-  border: 0 none;
+  border: 1px solid transparent;
 }
 h1 a.button{
   font-size: 11px;
@@ -169,6 +169,7 @@ form div input[type="submit"]{
   padding: 0 12px;
   margin-top: 20px;
   background: #900;
+  background: #2C5AA0;
   color: #fff;
   font-weight: bold;
   transition: background 1s;
