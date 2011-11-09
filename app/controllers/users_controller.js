@@ -24,11 +24,19 @@ var actions = {
       user = new User(req.body.user);
       user.password = crypto.createHash('md5').update(user.password).digest("hex");
       user.save(function(err){
-        console.log("SAVED:",user);
+        if(!err){
+          console.log("SAVED:",user);
+          res.redirect('/users/'+user.login+'/edit');
+        }else{
+          res.redirect('users/new');
+        }
       });
-      res.redirect('/login');
     }else{
-      res.redirect('users/new');
+      res.render('users/new',{
+        title: "New User"
+        , error: err
+        , user: user
+      });
     }
 
   },
@@ -51,7 +59,6 @@ var actions = {
   edit: function( req, res ){
     User.findOne( { 'login': req.params.user} , function(err,user){
       if(!err){
-        console.log(user);
         res.render('users/edit',{
             title: 'Users'
           , login: user.login
@@ -70,7 +77,6 @@ var actions = {
       , {$set: { token: req.body.user.tracker_id}}
       , {upsert: true}
       , function(err,user){
-        console.log('tracker:',user,'track');
         if(!err){
           res.redirect('users/'+req.body.user.login);
         }
@@ -82,7 +88,6 @@ var actions = {
           password: crypto.createHash('md5').update(req.body.user.password).digest("hex") }}
       , {upsert: true}
       , function(err,user){
-        console.log('USR:',user,'USR');
         if(!err){
           res.redirect('users/'+req.body.user.login);
         }

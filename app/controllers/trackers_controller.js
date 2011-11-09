@@ -21,7 +21,6 @@ var actions = {
     if(req.body.user){
       tracker = new Tracker(req.body.tracker);
       tracker.save(function(err){
-        console.log("SAVED:",tracker);
       });
       res.redirect('/trackers/');
     }else{
@@ -36,8 +35,8 @@ var actions = {
         res.render('trackers/show',{
           title: 'Projects'
         , tracker: tracker.project
-        , iteration: results.iterations.iteration[0]
-        , stories: results.iterations.iteration[0].stories.story
+        , iterations: results.iterations.iteration
+        , current: results.iterations.iteration[0]
         , daysLeft: function(time){
             now = new Date();
             when = new Date(time);

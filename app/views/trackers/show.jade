@@ -1,63 +1,90 @@
+- var heading = ['Current','Backlog','Icebox'];
+mixin stories(stories)
+  ul#stories
+    each story in stories.story
+      li(class='story #{story.story_type} #{story.current_state}')
+        - if(story.estimate != undefined)
+          a.estimate
+            - if(story.estimate.$t == '-1')
+              strong( data-story='#{story.id.$t}') estimate
+            - else
+              = story.estimate['$t']+" points"
+        - else
+          a.type= story.story_type
+        a(href='#{story.url}')= story.name
+        - if(typeof(story.description) == "string")
+          .description
+            = story.description
+            - if(story.notes != undefined)
+              - each note in story.notes.note
+                p.note= note.text
+                  a= note.author
+        - else
+          .description
+            - if(story.notes != undefined)
+              - each note in story.notes.note
+                p.note= note.text
+                  a= note.author
+
 h1#click= tracker.name
 dl#project
   dt Velocity
   dd= tracker.current_velocity
-  dt Iteration Finish
-  - var finish = new Date(iteration.finish.$t);
-  dd
-    = finish.toDateString();
-    small= " ("+daysLeft(iteration.finish.$t)+ " days left)";
-p.opt_list
+  - if (current != undefined)
+    dt Iteration Finish
+    - var finish = new Date(current.finish.$t);
+    dd
+      = finish.toDateString();
+      small= " ("+daysLeft(current.finish.$t)+ " days left)";
+menu.opt_list
   |Toggle:
-  a.button.opt.toggle('data-element'='.accepted') accepted
-  a.button.opt.toggle('data-element'='.delivered') delivered
-  a.button.opt.toggle('data-element'='.finished') finished
-  a.button.opt.toggle('data-element'='.started') started
-  a.button.opt.toggle('data-element'='.unstarted') unstarted
-  a.button.opt.toggle('data-element'='.feature') feature
-  a.button.opt.toggle('data-element'='.bug') bug
-  a.button.opt.toggle('data-element'='.chore') chore
-  a.button.opt.toggle('data-element'='header') header
-ul#stories
-  each story in stories
-    li(class='story #{story.story_type} #{story.current_state}')
-      - if(story.estimate != undefined)
-        a.estimate
-          - if(story.estimate.$t == '-1')
-            |estimate
-          - else
-            = story.estimate['$t']+" points"
-      - else
-        a.type= story.story_type
-      a(href='#{story.url}')= story.name
-      .description
-        - if(typeof(story.description) == "string")
-          = story.description
-        - if(story.notes != undefined)
-          - each note in story.notes.note
-            p.note= note.text
-              a= note.author
-script(type='text/javascript')
+  li.button.opt 
+    a.toggle('data-element'='.accepted') accepted
+  li.button.opt 
+    a.toggle('data-element'='.delivered') delivered
+  li.button.opt 
+    a.toggle('data-element'='.finished') finished
+  li.button.opt 
+    a.toggle('data-element'='.started') started
+  li.button.opt 
+    a.toggle('data-element'='.unstarted') unstarted
+  li.button.opt 
+    a.toggle('data-element'='.feature') feature
+  li.button.opt 
+    a.toggle('data-element'='.bug') bug
+  li.button.opt 
+    a.toggle('data-element'='.chore') chore
+  li.button.opt 
+    a.toggle('data-element'='header') header
+- each iteration,index in iterations
+  - if(!iteration.type)
+    h2= heading[index]
+    mixin stories(iteration.stories)
+a.button(href = '/trackers/icebox') Show me the icebox
+script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
+script
+  var sock = new SockJS('http://rsp.pinmonkey.com:3000/sock');
+  sock.onopen = function() {
+    console.log('open');
+  };
+  sock.onmessage = function(message) {
+    console.log('received: ' + JSON.stringify(message.data));
+  };
+  sock.onclose = function(m) {
+    console.log('closed',m.status,m.reason);
+  };
+
   $('.toggle').click(function(ev){
     ev.preventDefault();
     $($(this).data('element')).toggle();
-    $(this).toggleClass('off');
+    $(this).parent('li').toggleClass('off');
   });
-  /*
-  setTimeout(function(){
-    toggled = ''
-    $('.off').each(function(){
-      toggled+= $(this).data('element')+';'
-    });
-    document.location.href = '#'+toggled;
-  },5000);
-  $(function(){
-    toggled = document.location.href.split('#')[1]
-    buttons = toggled.split(';');
-    $(buttons).each(function(b){
-      $(b).toggle();
-    });
-  })*/
+
+  $('.estimate strong').click(function(e){
+    e.preventDefault();
+    sock.send({id:$(this).data('story'),estimate: 1});
+  });
+
   $('.story').click(function(ev){
     $(this).children('.description').toggle();
   });

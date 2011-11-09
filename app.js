@@ -42,6 +42,7 @@ require('./config/models.js').config(conf);
 require('./config/app.js').config(conf);
 // Routes
 require('./config/routes.js').routes(conf);
+
 //Index resources
 app.listen(3000);
 console.log("Pivotal Poker:\nlistening on port %d in %s mode", app.address().port, app.settings.env);

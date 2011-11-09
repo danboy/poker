@@ -5,11 +5,6 @@ var actions = {
       title: 'ping'
     });
 
-    app.sjs.on('open', function(conn) {
-      conn.on('message', function(e) {
-        conn.send(e.data);
-      });
-    });
   },
 
   show: function( req, res ){

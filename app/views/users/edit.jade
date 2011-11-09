@@ -6,6 +6,9 @@ form( action='/users/update', method='post' )
   div
     label( for='login' ) login
     input( name='user[login]', value='#{login}', readonly='true' )
+  - if(user.attribution == 'google')
+    div.message
+      p No need to add a password since you login with google.
   div
     label( for='password' ) password
     input( name='user[password]' )

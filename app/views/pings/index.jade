@@ -5,6 +5,9 @@ script
   sock.onopen = function() {
     console.log('open');
   };
-  sock.onmessage = function(e) {
-    console.log(' [ ] received: ' + JSON.stringify(e.data));
+  sock.onmessage = function(message) {
+    console.log('received: ' + JSON.stringify(message.data));
+  };
+  sock.onclose = function(m) {
+    console.log('closed',m.status,m.reason);
   };

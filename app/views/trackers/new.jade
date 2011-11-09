@@ -30,7 +30,6 @@ script(type='text/javascript')
       }
       , type: 'POST'
       , error : function(xhr, ajaxOptions,err) {
-          console.log(ajaxOptions, 'Invalid username or password. Please try again.');
           $('.step1 #username').focus();
         }
       , success: function(resp){

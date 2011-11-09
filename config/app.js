@@ -31,4 +31,11 @@ module.exports.config = function(c){
     app.use(express.errorHandler()); 
   });
   everyauth.helpExpress(app);
+  var estimates = [];
+  app.sjs.on('open', function(conn) {
+    conn.on('message', function(e) {
+      estimates.push({id:e.data.id,estimate:e.data.estimate});
+      conn.send(estimates);
+    });
+  });
 }

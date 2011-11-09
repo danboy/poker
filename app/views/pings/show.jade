@@ -1,5 +1,4 @@
 h1 Show
-extends extend-layout
 block scripts
   script(src='/js/jquery.js')
   script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
@@ -8,4 +7,6 @@ block scripts
     sock.onmessage = function(e) {
       console.log(' [ ] received: ' + JSON.stringify(e.data));
     };
-    console.log('ffo');
+    sock.onclose = function(m){
+      console.log(m.reason);
+    }

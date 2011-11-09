@@ -1,13 +1,25 @@
 body {
   padding:0;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 
 body section,
 body header{
-  width: 480px;
+  width: 100%;
   margin: 0 auto;
 }
+
+body section{
+  border: 1px solid #CCC;
+  background: #FFF;
+  border-radius: 2px;
+  margin: 20px auto;
+  width: 100%;
+  background-image: linear-gradient(bottom, rgb(200,200,200) 11%, rgb(255,255,255) 56%);
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgb(245,245,245)), to(rgb(255,255,255)));
+}
+
 header h1{
   display: inline-block;
   border: 1px solid #DDD;
@@ -66,7 +78,7 @@ a:visited{
 .button:hover{
   border: 1px solid #999;
 }
-p.opt_list{
+menu.opt_list{
   margin: 0;
   padding: 0;
   line-height: 36px;
@@ -82,10 +94,36 @@ p.opt_list{
   border-bottom-right-radius: 0;  
 }
 
-a.button.opt.off{
+li.button.opt.off{
   background: none;
   border: 1px solid transparent;
 }
+menu li{
+  height: 20px;
+  overflow: visible;
+}
+menu li .sub{
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+menu li:hover .sub{
+  display: block;
+  width: 30px;
+  overflow: visible;
+}
+menu li .sub li:hover,
+menu li .sub:hover li{
+  display: block;
+}
+menu li .sub li{
+  margin: 0;
+  display:block;
+  clear:both;
+  width: 250px;
+  font-size: 11px;
+}
+
 h1 a.button{
   font-size: 11px;
   text-decoration: none;
@@ -118,18 +156,59 @@ h1 a.button{
 /* FORMS */
 
 form{
-  border: 1px solid #CCC;
-  background: #FFF;
-  border-radius: 2px;
-  padding: 20px;
-  width: 400px;
-  margin: 0 auto;
-  background-image: linear-gradient(bottom, rgb(200,200,200) 11%, rgb(255,255,255) 56%);
-  background-image: -webkit-gradient(linear, left bottom, left top, from(rgb(245,245,245)), to(rgb(255,255,255)));
+  padding: 10px;
+  width: auto;
+  margin: 10px 0;
 }
 
 form div{
   padding: 10px;
+}
+
+/* Messages */
+form div.message{
+  border: 1px solid #CCC;
+  background: #FFC;
+  border-radius: 2px;
+  padding: 10px;
+  position: relative;
+}
+
+form div.message p{
+  margin: 0;
+}
+
+form div.message:after{
+  content: "";
+  border-width:10px 10px 0;
+  border-style: solid;
+  border-color: #FFC transparent;
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  left: 5px;
+}
+form div.message:before{
+  content: "";
+  border-width:10px 10px 0;
+  border-style: solid;
+  border-color: #CCC transparent;
+  display: block;
+  position: absolute;
+  bottom: -11px;
+  left: 5px;
+}
+
+/* ERROR Messages */
+
+form div.message.error:after{
+  border-color: #FDD transparent;
+}
+
+form div.message.error{
+  background: #FDD;
+  color: #900;
+  font-weight: bold;
 }
 
 form div label{
@@ -266,13 +345,34 @@ ul#stories li{
 }
 #stories li.finished{
   opacity: .75;
+  transition: opacity 2s;
+  -moz-transition: opacity 2s; /* Firefox 4 */
+  -webkit-transition: opacity 2s; /* Safari and Chrome */
+  -o-transition: opacity 2s; /* Opera */
 }
+#stories li.finished:hover{
+  opacity: 1;
+}
+
 #stories li.delivered{
   opacity: .6;
+  -moz-transition: opacity 2s; /* Firefox 4 */
+  -webkit-transition: opacity 2s; /* Safari and Chrome */
+  -o-transition: opacity 2s; /* Opera */
 }
+#stories li.delivered:hover{
+  opacity: 1;
+}
+
 #stories li.accepted{
   opacity: .5;
   text-decoration: line-through;
+  -moz-transition: opacity 2s; /* Firefox 4 */
+  -webkit-transition: opacity 2s; /* Safari and Chrome */
+  -o-transition: opacity 2s; /* Opera */
+}
+#stories li.accepted:hover{
+  opacity: 1;
 }
 
 #stories li.delivered:before{
@@ -386,12 +486,16 @@ ul#trackers li a{
 }
 
 @media only screen and (min-width: 900px) {
-  body section,
+  body section{
+    width: 940px;
+    padding: 10px;
+  }
   body header{
     width: 960px;
+    padding: 0;
   }
   form{
-    width: 400px;
-    margin: 0 auto;
+    width: auto;
+    margin: 10px 0;
   }
 }
