@@ -31,7 +31,7 @@ Game.prototype = {
       game.find('ol').remove();
       setTimeout(function(){
         self.sock.send( { finished: true, id: self.id });
-      },3000);
+      },5000);
     });
     game.find('.close').click(function(){
       game.remove();
@@ -43,6 +43,6 @@ Game.prototype = {
 };
 
 var Board = {
-    template:  "<div id=\"{{id}}\" class=\"game_board\"><a class=\"close\">close</a><h1>{{title}}</h1><div class=\"desc\">{{description}}</div><h2>estimate</h2>{{>cards}}<a class=\"button\">get results</a></div>"
+    template:  "<div id=\"{{id}}\" class=\"game_board\"><a class=\"close button\">close</a><h1>{{title}}</h1><div class=\"desc\">{{description}}</div><h2>estimate</h2>{{>cards}}<a class=\"button\">get results</a></div>"
   , cards:     "<ol>{{#points}}<li><a data-estimate=\"{{.}}\">{{.}}</a></li>{{/points}}</ol>"
 }

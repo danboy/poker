@@ -73,13 +73,14 @@ script
     var results = JSON.parse(message.data);
     switch(results.type){
     case "estimate":
-        $('.game_board').html('<ol class="result"></ol>');
+        $('.game_board').html('<a class="close">close</a><ol class="result"></ol>');
         for(key in results.results){
           if(results.results[key] !== null && results.results[key] > 0){
             size = results.results[key];
-            $('.result').append('<li class="size_'+size+'">'+key+'</li>');
+            $('.result').append('<li class="size_'+size+'">'+key+'<small>'+size+'</small></li>');
           }
         }
+        $('.close').click(function(){$('.game_board').remove();});
       break;
     default:
       console.log('default');

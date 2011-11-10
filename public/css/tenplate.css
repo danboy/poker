@@ -292,6 +292,31 @@ body {
       margin-bottom: 1.25em;
       margin-top: 1.25em; }
 
+ul#trackers {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+ul#trackers li {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0 0 0 5px;
+  border-left: 5px solid #DDD;
+  transition: border 1s;
+  -moz-transition: border 1s;
+  /* Firefox 4 */
+  -webkit-transition: border 1s;
+  /* Safari and Chrome */
+  -o-transition: border 1s;
+  /* Opera */ }
+
+ul#trackers li:hover {
+  border-left: 10px solid #900; }
+
+ul#trackers li a {
+  color: #333;
+  text-decoration: none; }
+
 dl#project dt {
   marign: 0;
   padding: 0;
@@ -534,10 +559,24 @@ ul#stories li {
     .game_board ol li:nth-child(4) {
       -webkit-transform: rotate(7deg);
       -moz-transform: rotate(7deg); }
+    .game_board ol li small {
+      clear: both;
+      display: block;
+      font-size: 22px;
+      margin-top: -20px;
+      color: #900; }
   .game_board .result {
     font-size: 120px;
     font-weight: bold;
     line-height: 120px; }
+  .game_board .close {
+    display: block;
+    float: right;
+    margin: -5px -5px 0 0;
+    font-weight: bold;
+    font-size: 1.1em; }
+  .game_board .button {
+    color: #333; }
 
 @media only screen and (min-width: 900px) {
   body section {
