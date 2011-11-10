@@ -1,6 +1,7 @@
 var _ = require('underscore')
   , express = require('express')
   , Resource = require('express-resource')
+  , Redis = require('redis')
   , RedisStore = require('connect-redis')(express)
   , Pivotal = require('pivotal-tracker')
   , mongoose = require('mongoose')
@@ -14,6 +15,7 @@ var _ = require('underscore')
   , conf = {
          express: express
        , Resource: Resource
+       , Redis: Redis
        , RedisStore: RedisStore
        , everyauth: everyauth
        , paths: {

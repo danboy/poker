@@ -475,6 +475,70 @@ ul#stories li {
   color: #999;
   text-transform: capitalize; }
 
+.game_board {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  width: 480px;
+  padding: 20px;
+  background: #FFF;
+  border: 1px solid #DDD;
+  color: #333;
+  margin-left: -240px;
+  text-align: center;
+  border-radius: 4px; }
+  .game_board h1 {
+    font-size: 2em;
+    margin-bottom: 1em;
+    margin-top: 1em; }
+  .game_board h2 {
+    font-size: 1.9em;
+    margin-bottom: 1.053em;
+    margin-top: 1.053em; }
+  .game_board .desc {
+    background: #FFF;
+    overflow: hidden;
+    border: 1px solid #DDD;
+    color: #333;
+    margin: -10px;
+    padding: 10px;
+    font-size: 1.6em;
+    margin-bottom: 1.25em;
+    margin-top: 1.25em; }
+  .game_board ol li {
+    list-style: none;
+    display: inline-block;
+    width: 100px;
+    line-height: 100px;
+    font-size: 80px;
+    font-weight: bold;
+    height: 150px;
+    border: 1px solid #EEE;
+    background: #FFF;
+    margin: 5px;
+    border-radius: 4px;
+    background-image: -moz-linear-gradient(center bottom, #f8f8c8 11%, white 56%);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.11, #f8f8c8), color-stop(0.56, white));
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 0 65px #eeeebb inset, 0 0 20px #f9f9c9 inset;
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 0 65px #eeeebb inset, 0 0 20px #f9f9c9 inset;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 0 0 65px #eeeebb inset, 0 0 20px #f9f9c9 inset; }
+    .game_board ol li:nth-child(1) {
+      -webkit-transform: rotate(-12deg);
+      -moz-transform: rotate(-12deg); }
+    .game_board ol li:nth-child(2) {
+      -webkit-transform: rotate(5deg);
+      -moz-transform: rotate(5deg); }
+    .game_board ol li:nth-child(3) {
+      -webkit-transform: rotate(-3deg);
+      -moz-transform: rotate(-3deg); }
+    .game_board ol li:nth-child(4) {
+      -webkit-transform: rotate(7deg);
+      -moz-transform: rotate(7deg); }
+  .game_board .result {
+    font-size: 120px;
+    font-weight: bold;
+    line-height: 120px; }
+
 @media only screen and (min-width: 900px) {
   body section {
     width: 940px;

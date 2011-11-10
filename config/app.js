@@ -4,7 +4,8 @@ module.exports.config = function(c){
   var app = c.app
     , express = c.express
     , everyauth = c.everyauth
-    , RedisStore = c.RedisStore
+    , Redis = c.Redis
+    , RedisStore = c.RedisStore;
 
   require('../lib/auth.js').auth({
       everyauth: everyauth
@@ -31,11 +32,8 @@ module.exports.config = function(c){
     app.use(express.errorHandler()); 
   });
   everyauth.helpExpress(app);
-  var estimates = [];
-  app.sjs.on('open', function(conn) {
-    conn.on('message', function(e) {
-      estimates.push({id:e.data.id,estimate:e.data.estimate});
-      conn.send(estimates);
-    });
+  require('../lib/poker.js').init({
+      Redis:  Redis
+    , app:    app
   });
 }

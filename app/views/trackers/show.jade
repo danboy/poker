@@ -11,7 +11,7 @@ mixin stories(stories)
               = story.estimate['$t']+" points"
         - else
           a.type= story.story_type
-        a(href='#{story.url}')= story.name
+        a(href='#{story.url}', class='title')= story.name
         - if(typeof(story.description) == "string")
           .description
             = story.description
@@ -62,16 +62,33 @@ menu.opt_list
     mixin stories(iteration.stories)
 a.button(href = '/trackers/icebox') Show me the icebox
 script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
+script(src="/js/poker.js")
 script
   var sock = new SockJS('http://rsp.pinmonkey.com:3000/sock');
   sock.onopen = function() {
     console.log('open');
   };
   sock.onmessage = function(message) {
+    console.log(message.data);
+    var results = JSON.parse(message.data);
+    switch(results.type){
+    case "estimate":
+        $('.game_board').html('<ol class="result"></ol>');
+        for(key in results.results){
+          if(results.results[key] !== null && results.results[key] > 0){
+            size = results.results[key];
+            $('.result').append('<li class="size_'+size+'">'+key+'</li>');
+          }
+        }
+      break;
+    default:
+      console.log('default');
+    }
     console.log('received: ' + JSON.stringify(message.data));
   };
   sock.onclose = function(m) {
-    console.log('closed',m.status,m.reason);
+    $('.game_board').remove();
+    return sock = new SockJS('http://rsp.pinmonkey.com:3000/sock');
   };
 
   $('.toggle').click(function(ev){
@@ -82,7 +99,7 @@ script
 
   $('.estimate strong').click(function(e){
     e.preventDefault();
-    sock.send({id:$(this).data('story'),estimate: 1});
+    new Game(this, sock);
   });
 
   $('.story').click(function(ev){
