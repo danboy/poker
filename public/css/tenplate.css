@@ -521,6 +521,7 @@ ul#stories li {
     margin-bottom: 1.053em;
     margin-top: 1.053em; }
   .game_board .desc {
+    display: none;
     background: #FFF;
     overflow: hidden;
     border: 1px solid #DDD;
@@ -530,6 +531,11 @@ ul#stories li {
     font-size: 1.6em;
     margin-bottom: 1.25em;
     margin-top: 1.25em; }
+  .game_board .countdown {
+    font-size: 75px;
+    font-weight: bold;
+    color: #900;
+    line-height: 120px; }
   .game_board ol li {
     list-style: none;
     display: inline-block;

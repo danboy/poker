@@ -45,6 +45,7 @@ var actions = {
             return days+1;
           }
         });
+        console.log(tracker.project);
       });
     });
   },

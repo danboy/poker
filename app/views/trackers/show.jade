@@ -37,7 +37,6 @@ dl#project
       = finish.toDateString();
       small= " ("+daysLeft(current.finish.$t)+ " days left)";
 menu.opt_list
-  |Toggle:
   li.button.opt 
     a.toggle('data-element'='.accepted') accepted
   li.button.opt 
@@ -48,6 +47,7 @@ menu.opt_list
     a.toggle('data-element'='.started') started
   li.button.opt 
     a.toggle('data-element'='.unstarted') unstarted
+  li
   li.button.opt 
     a.toggle('data-element'='.feature') feature
   li.button.opt 
@@ -73,7 +73,7 @@ script
     var results = JSON.parse(message.data);
     switch(results.type){
     case "estimate":
-        $('.game_board').html('<a class="close">close</a><ol class="result"></ol>');
+        $('.game_board .countdown').html('<ol class="result"></ol>');
         for(key in results.results){
           if(results.results[key] !== null && results.results[key] > 0){
             size = results.results[key];

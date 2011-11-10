@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var _ = require('underscore')
   , express = require('express')
   , Resource = require('express-resource')
