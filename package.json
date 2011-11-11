@@ -3,7 +3,8 @@
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
-      "express": "2.4.3"
+      "connect": "1.x.x"
+    , "express": "2.4.3"
     , "express-resource": "0.x.x"
     , "underscore": "1.x.x"
     , "everyauth": "0.x.x"
@@ -12,8 +13,7 @@
     , "pivotal-tracker": "0.x.x"
     , "sockjs": "0.x.x"
     , "xml2json": "0.x.x"
-    , "connect-redis": "0.x.x"
+    , "connect-redis": "1.x.x"
     , "redis": "0.x.x"
-    , "sass": "0.x.x"
   }
 }
