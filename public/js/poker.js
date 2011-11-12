@@ -27,6 +27,7 @@ Game.prototype = {
     self = this;
     var game = $('#'+this.id);
     game.find('ol li').click(function(ev){
+      ev.preventDefault();
       self.sock.send({id: self.id, estimate: $(this).find('a').data('estimate')});
       game.find('ol').remove();
       clock = new Countdown(5,function(count){
