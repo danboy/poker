@@ -26,7 +26,7 @@ var actions = {
       user.save(function(err){
         if(!err){
           console.log("SAVED:",user);
-          res.redirect('/users/'+user.login+'/edit');
+          res.redirect('/login');
         }else{
           res.redirect('users/new');
         }
