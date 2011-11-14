@@ -1,6 +1,13 @@
 Pivotal Planner
 ===============
 
+This is a Iteration Planning app for pivotal tracker, currently supports
+viewing stories and comments and etimating stories with a cool sockets
+poker game.
+
+[tracker](https://www.pivotaltracker.com/projects/414007)
+
+
 1. clone it
 2. npm install -d
 3. npm update
