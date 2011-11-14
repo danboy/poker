@@ -72,6 +72,7 @@ script
     console.log(message.data);
     var results = JSON.parse(message.data);
     switch(results.type){
+    //swithch this to a callback
     case "estimate":
         $('.game_board .countdown').html('<ol class="result"></ol>');
         for(key in results.results){
