@@ -45,7 +45,7 @@ var actions = {
             return days+1;
           }
         });
-        console.log(tracker.project);
+        console.log(results.iterations.iteration[2]);
       });
     });
   },

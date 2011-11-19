@@ -11,7 +11,8 @@ mixin stories(stories)
               = story.estimate['$t']+" points"
         - else
           a.type= story.story_type
-        a(href='#{story.url}', class='title')= story.name
+        h3
+          a(href='#{story.url}', class='title')= story.name
         - if(typeof(story.description) == "string")
           .description
             = story.description
@@ -62,6 +63,7 @@ menu.opt_list
     mixin stories(iteration.stories)
 a.button(href = '/trackers/icebox') Show me the icebox
 script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
+script(src="/js/presenter.js")
 script(src="/js/poker.js")
 script
   var sock = new SockJS('/sock');
@@ -107,3 +109,4 @@ script
   $('.story').click(function(ev){
     $(this).children('.description').toggle();
   });
+  ipm  = new Presentation('#stories li',0);
