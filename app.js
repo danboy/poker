@@ -33,13 +33,13 @@ sjs.installHandlers( app, {prefix:'[/]sock'} );
 
 global.crypto = require('crypto');
 
+app.sjs = sjs;
+app.db = mongoose;
+app.port = process.env.PORT || 3000;
+
 // Global objects
 global.app = app;
 global._ = _;
-
-app.sjs = sjs;
-app.db = mongoose;
-
 // Models
 require('./config/models.js').config(conf);
 // Configuration
@@ -48,5 +48,5 @@ require('./config/app.js').config(conf);
 require('./config/routes.js').routes(conf);
 
 //Index resources
-app.listen(3000);
+app.listen(app.port);
 console.log("Pivotal Poker:\nlistening on port %d in %s mode", app.address().port, app.settings.env);
