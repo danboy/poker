@@ -14,6 +14,11 @@ Add yourself to our [tracker](https://www.pivotaltracker.com/projects/414007)!
 4. Install redis/mongo
 5. node app.js
 
+By default the app launches on port 3000, but you can pass an alternate
+port with the PORT environment variable:
+
+> PORT=8888 node app.js
+
 Some stuffs you can do
 ----------------------
 
