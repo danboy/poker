@@ -1,6 +1,6 @@
-Presentation = function(list,slide){
+Presentation = function(list,sock){
   this.list = $(list);
-  this.slide = slide;
+  this.slide = 0;
   this.init();
 }
 

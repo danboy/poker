@@ -1,6 +1,6 @@
 var Game = Game || {};
 Game = function(element,sock){
-
+  this.sock = sock;
   this.item = $(element);
   this.sock = sock;
   this.id = this.item.data('story');

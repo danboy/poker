@@ -16,5 +16,6 @@
     , "xml2json": "0.x.x"
     , "connect-redis": "1.x.x"
     , "redis": "0.x.x"
+    , "markdown": "0.x.x"
   }
 }
