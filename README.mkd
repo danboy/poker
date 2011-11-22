@@ -14,6 +14,10 @@ poker game.
 4. Install redis/mongo
 5. node app.js
 
+Some stuffs you can do
+----------------------
+
+* Create a user
 * Once you create a user, you'll need to add a tracker account by logging in and visiting your profile.
 * When veiwing an individual project you can enter presentation mode by clicking on the green "[]"
 * Navigate using J:next K:previous Q:quiit
