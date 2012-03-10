@@ -25,7 +25,6 @@ var actions = {
       user.password = crypto.createHash('md5').update(user.password).digest("hex");
       user.save(function(err){
         if(!err){
-          console.log("SAVED:",user);
           res.redirect('/login');
         }else{
           res.redirect('users/new');
@@ -71,7 +70,6 @@ var actions = {
 
   //Update
   update: function( req, res ){
-    console.log(req.body.user.tracker_id,req.body.user.login);
     if(req.body.user.tracker_id){
       User.update( { 'login': req.body.user.login} 
       , {$set: { token: req.body.user.tracker_id}}

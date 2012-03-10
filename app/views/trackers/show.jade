@@ -1,122 +1,31 @@
+mixin story(story)
+  li(class='story #{story.story_type} #{story.current_state}')
+    - if(story.estimate != undefined)
+      a.estimate
+        - if(story.estimate == '-1')
+          strong( data-story='#{story.id}') estimate
+        - else
+          strong= story.estimate
+          | points
+    - else
+      a.type= story.story_type
+    h3
+      a(href='#{story.url}', class='title')= story.name
+    - if(typeof(story.description) == "string")
+      .description
+        div!= story.description.replace(/(\n)/g,"<br/>").replace(/(?:[*])([^*]*)(?:[*])/g,'<b>$1</b>');
+
 mixin stories(stories)
   ul#stories
-    each story in stories.story
-      li(class='story #{story.story_type} #{story.current_state}')
-        - if(story.estimate != undefined)
-          a.estimate
-            - if(story.estimate.$t == '-1')
-              strong( data-story='#{story.id.$t}') estimate
-            - else
-              = story.estimate['$t']+" points"
-        - else
-          a.type= story.story_type
-        h3
-          a(href='#{story.url}', class='title')= story.name
-        - if(typeof(story.description) == "string")
-          .description
-            div!= story.description.replace(/(\n)/g,"<br/>").replace(/(?:[*])([^*]*)(?:[*])/g,'<b>$1</b>');
-            - if(story.notes != undefined)
-              - if(story.notes.note.length)
-                - each n in story.notes.note
-                  p.note= n.text
-                    a= n.author
-              - else
-                - each n in story.notes
-                  - if(n.author)
-                    p.note= n.text
-                      a= n.author
-        - else
-          .description
-            - if(story.notes != undefined)
-              - if(story.notes.note.length)
-                - each n in story.notes.note
-                  p.note= n.text
-                    a= n.author
-              - else
-                - each n in story.notes
-                  - if(n.author)
-                    p.note= n.text
-                      a= n.author
+    - if (stories.story && !stories.story.id)
+      each story in stories.story
+        mixin story(story)
+    - else if (stories.story && stories.story.id)
+      mixin story(stories.story)
 
-h1#click= tracker.name
-dl#project
-  dt Velocity
-  dd= tracker.current_velocity
-  - if (current != undefined)
-    dt Iteration Finish
-    - var finish = new Date(current.finish.$t);
-    dd
-      = finish.toDateString();
-      small= " ("+daysLeft(current.finish.$t)+ " days left)";
-menu.opt_list
-  li.button.opt 
-    a.toggle('data-element'='.accepted') accepted
-  li.button.opt 
-    a.toggle('data-element'='.delivered') delivered
-  li.button.opt 
-    a.toggle('data-element'='.finished') finished
-  li.button.opt 
-    a.toggle('data-element'='.started') started
-  li.button.opt 
-    a.toggle('data-element'='.unstarted') unstarted
-  li
-  li.button.opt 
-    a.toggle('data-element'='.feature') feature
-  li.button.opt 
-    a.toggle('data-element'='.bug') bug
-  li.button.opt 
-    a.toggle('data-element'='.chore') chore
-  li.button.opt 
-    a.toggle('data-element'='header') header
-- each iteration,index in iterations
+- each iteration, index in iterations
   - if(!iteration.type)
-    - var date = new Date(iteration.finish.$t)
+    - var date = new Date(iteration.finish)
     h2= (date.getMonth()+1)+"/"+(date.getDate()+1)
+    - if(date.getDate()+1 == 28){ console.log(iteration.stories)}
     mixin stories(iteration.stories)
-a.button(href = '/trackers/icebox') Show me the icebox
-script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
-script(src="/js/presenter.js")
-script(src="/js/poker.js")
-script
-  var sock = new SockJS('/sock');
-  sock.onopen = function() {
-    console.log('open');
-  };
-  sock.onmessage = function(message) {
-    var results = JSON.parse(message.data);
-    switch(results.type){
-    //switch this to a callback
-    case "estimate":
-        $('.game_board .countdown').html('<ol class="result"></ol>');
-        for(key in results.results){
-          if(results.results[key] !== null && results.results[key] > 0){
-            size = results.results[key];
-            $('.result').append('<li class="size_'+size+'">'+key+'<small>'+size+'</small></li>');
-          }
-        }
-        $('.close').click(function(){$('.game_board').remove();});
-      break;
-    default:
-      console.log('default');
-    }
-  };
-  sock.onclose = function(m) {
-    $('.game_board').remove();
-    return sock = new SockJS('http://rsp.pinmonkey.com:3000/sock');
-  };
-
-  $('.toggle').click(function(ev){
-    ev.preventDefault();
-    $($(this).data('element')).toggle();
-    $(this).parent('li').toggleClass('off');
-  });
-
-  $('.estimate strong').click(function(e){
-    e.preventDefault();
-    new Game(this, sock);
-  });
-
-  $('.story').click(function(ev){
-    $(this).children('.description').toggle();
-  });
-  ipm  = new Presentation('#stories li',0);

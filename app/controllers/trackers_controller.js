@@ -1,11 +1,12 @@
 var everyauth = require('everyauth')
-  , Pivotal = require('pivotal-tracker')
+  , Pivotal = require('pivotal')
 var actions = {
-  index : function( req, res ){
-    Pivotal.getProjects(req.user.token, function(results){
+  index: function( req, res ){
+    Pivotal.useToken(req.user.token);
+    Pivotal.getProjects(function(err,results){
       res.render('trackers/index',{
         title: 'Projects'
-      , trackers: results.projects.project
+      , trackers: results.project
       });
     });
       
@@ -30,41 +31,19 @@ var actions = {
   },
 
   show: function( req, res){
-    Pivotal.getProject(req.params.tracker,req.user.token,function(tracker){
-      Pivotal.getCurrentIteration(req.params.tracker,req.user.token,function(results){
-        res.render('trackers/show',{
-          title: 'Projects'
-        , tracker: tracker.project
-        , iterations: results.iterations.iteration
-        , current: results.iterations.iteration[0]
-        , daysLeft: function(time){
-            now = new Date();
-            when = new Date(time);
-            diff = when.getTime() - now.getTime();
-            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            return days+1;
-          }
-        });
+    Pivotal.useToken(req.user.token);
+    Pivotal.getIterations(req.params.tracker,{group: '/current_backlog'}, function(err,results){
+      res.render('trackers/show',{
+        iterations: results.iteration
+      , title: "Foo"
       });
     });
   },
 
   getIteration: function( req, res){
-    Pivotal.getProject(req.body.tracker,req.user.token,function(project){
-      Pivotal.getCurrentIteration(req.body.tracker,req.user.token,function(iterations){
-        res.send({
-          project: project
-        , iterations: iterations  
-        });
-      });
-    });
   },
 
   getToken: function(req,res){
-    Pivotal.getToken(req.body.username,req.body.password,function(token){
-      res.send({token: token});
-    });
-  
   },
   daysLeft: function(time){
   }

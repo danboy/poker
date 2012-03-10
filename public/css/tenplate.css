@@ -237,6 +237,66 @@ form div input[type="submit"]:hover {
 form.step2 {
   display: none; }
 
+ul#stories li.current {
+  border-color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  opacity: 1;
+  transition: opacity .5s;
+  -moz-transition: opacity .5s;
+  /* Firefox 4 */
+  -webkit-transition: opacity .5s;
+  /* Safari and Chrome */
+  -o-transition: opacity .5s;
+  /* Opera */ }
+  ul#stories li.current .description {
+    display: block; }
+  ul#stories li.current a.estimate {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 80px;
+    background: #fff;
+    border-bottom: 1px solid #333; }
+    ul#stories li.current a.estimate strong.points {
+      font-size: 55px;
+      font-weight: bold;
+      color: #900;
+      display: inline-block;
+      margin: 5px 20px; }
+  ul#stories li.current .start {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    top: 0; }
+  ul#stories li.current h3 {
+    display: block;
+    clear: both;
+    font-size: 60px;
+    line-height: 60px;
+    margin: 40px auto;
+    text-align: center;
+    width: 90%; }
+    ul#stories li.current h3 a {
+      text-transform: capitalize; }
+  ul#stories li.current .description {
+    width: 90%;
+    margin: 0 auto; }
+    ul#stories li.current .description ul li {
+      list-style: disc inset;
+      font-size: 18px; }
+    ul#stories li.current .description p.note {
+      width: 25%;
+      margin: 3%;
+      display: inline-block;
+      vertical-align: top; }
+
 body {
   overflow-x: hidden; }
   body section,
@@ -384,44 +444,6 @@ ul#stories li {
   margin: 2px 0 2px 4px;
   color: #444;
   text-decoration: none; }
-
-ul#stories li.current {
-  border-color: #333;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 99;
-  opacity: 1; }
-  ul#stories li.current .description {
-    display: block; }
-  ul#stories li.current .start {
-    visibility: hidden;
-    position: absolute;
-    right: 0;
-    top: 0; }
-  ul#stories li.current h3 {
-    display: block;
-    clear: both;
-    font-size: 60px;
-    line-height: 60px;
-    margin: 40px auto;
-    text-align: center;
-    width: 90%; }
-    ul#stories li.current h3 a {
-      text-transform: capitalize; }
-  ul#stories li.current .description {
-    width: 90%;
-    margin: 0 auto; }
-    ul#stories li.current .description ul li {
-      list-style: disc inset;
-      font-size: 18px; }
-    ul#stories li.current .description p.note {
-      width: 25%;
-      margin: 3%;
-      display: inline-block;
-      vertical-align: top; }
 
 #stories li h3 {
   display: inline-block; }

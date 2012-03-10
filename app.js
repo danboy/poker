@@ -5,14 +5,14 @@ var _ = require('underscore')
   , Resource = require('express-resource')
   , Redis = require('redis')
   , RedisStore = require('connect-redis')(express)
-  , Pivotal = require('pivotal-tracker')
+  , Pivotal = require('pivotal')
   , mongoose = require('mongoose')
   , everyauth = require('everyauth')
   , app = module.exports = express.createServer()
   , sockjs = require('sockjs')
   , sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
   , dir = __dirname
-  , sjs = new sockjs.Server(sockjs_opts)
+  , sjs = sockjs.createServer(sockjs_opts)
   , app_root = dir + '/app'
   , conf = {
          express: express
