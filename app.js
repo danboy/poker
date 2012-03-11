@@ -12,7 +12,6 @@ var _ = require('underscore')
   , sockjs = require('sockjs')
   , sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
   , dir = __dirname
-  , sjs = sockjs.createServer(sockjs_opts)
   , app_root = dir + '/app'
   , conf = {
          express: express
@@ -29,11 +28,11 @@ var _ = require('underscore')
        , app: app
   };
 
-sjs.installHandlers( app, {prefix:'[/]sock'} );
 
 global.crypto = require('crypto');
 
-app.sjs = sjs;
+app.gameSocketServers = {};
+app.sjs = sockjs;
 app.db = mongoose;
 app.port = process.env.PORT || 3000;
 

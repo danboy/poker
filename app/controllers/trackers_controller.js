@@ -31,19 +31,38 @@ var actions = {
   },
 
   show: function( req, res){
+    var trackerId = req.params.tracker;
     Pivotal.useToken(req.user.token);
-    Pivotal.getIterations(req.params.tracker,{group: '/current_backlog'}, function(err,results){
+    Pivotal.getIterations(trackerId,{group: '/current_backlog'}, function(err,results){
       res.render('trackers/show',{
         iterations: results.iteration
+      , trackerId: trackerId
       , title: "Foo"
       });
     });
+
+    if(!app.gameSocketServers[trackerId]){
+      var sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"};
+      var server = app.sjs.createServer(sockjs_opts);
+
+      server.on('connection', function(conn) {
+        server.on('start', function(data){
+          conn.write(JSON.stringify(data));
+        });
+      });
+
+      server.installHandlers(app, {prefix:'[/]game_socket/' + trackerId});
+      app.gameSocketServers[trackerId] = server;
+    }
   },
 
   getIteration: function( req, res){
   },
 
-  getToken: function(req,res){
+  startGame: function(req,res){
+    console.log("ID",req.body.trackerId);
+    server = app.gameSocketServers[req.body.trackerId];
+    server.emit('start',{'instruction': req.body.instruction, 'slide': req.body.slide})
   },
   daysLeft: function(time){
   }

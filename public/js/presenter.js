@@ -1,5 +1,6 @@
 Presentation = function(list,sock){
   this.list = $(list);
+  this.trackerId = sock;
   this.slide = 0;
   this.init();
 }
@@ -7,13 +8,6 @@ Presentation = function(list,sock){
 Presentation.prototype = {
   init: function(){
     self = this;
-    this.list.each(function(index,item){
-      var link = $('<a/>',{'text': '[]', name: 'slide'+index, href: '#slide'+index, 'class': 'start'}).click(function(){
-        self.show(index);
-        link.click();
-      });
-      $(item).append(link);
-    });
     this.setKeys();
   },
   start: function(){
@@ -35,18 +29,36 @@ Presentation.prototype = {
     this.slide--;
     this.show(this.slide);
   },
+  message: function(message,slide){
+    var self = this;
+    $.ajax({
+      url: '/trackers/start_game'
+    , data: {
+        trackerId: this.trackerId
+      , instruction: message
+      , slide: self.slide
+      }
+    , type: 'POST'
+    , error : function(xhr, ajaxOptions,err) {
+        console.log(err);
+      }
+    , success: function(resp){
+        console.log('data',resp.data);
+      }
+    });
+  },
   setKeys: function(){
-    self = this;
+    var self = this;
     $(document).keypress(function(e){
       switch(e.keyCode){
       case 106:
-        self.next();
+        self.message('next');
         break;
       case 107:
-        self.previous();
+        self.message('previous');
         break;
       case 113:
-        self.stop();
+        self.message('stop');
         break;
       default:
         break;
