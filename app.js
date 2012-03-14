@@ -31,6 +31,7 @@ var _ = require('underscore')
 
 global.crypto = require('crypto');
 
+app.dir = __dirname;
 app.gameSocketServers = {};
 app.sjs = sockjs;
 app.db = mongoose;

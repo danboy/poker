@@ -1,6 +1,6 @@
 Presentation = function(list,sock){
   this.list = $(list);
-  this.trackerId = sock;
+  this.projectId = sock;
   this.slide = 0;
   this.init();
 }
@@ -32,9 +32,9 @@ Presentation.prototype = {
   message: function(message,slide){
     var self = this;
     $.ajax({
-      url: '/trackers/start_game'
+      url: '/projects/start_game'
     , data: {
-        trackerId: this.trackerId
+        projectId: this.projectId
       , instruction: message
       , slide: self.slide
       }

@@ -1,5 +1,6 @@
 mixin story(story, index, iterationDate)
   - var Month = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  - var Type = {'chore': 'c', 'bug': 'b'};
   - var current = '';
   - if(index == 0){current = 'current'};
   li(class='story #{story.story_type} #{story.current_state}')
@@ -13,8 +14,8 @@ mixin story(story, index, iterationDate)
               strong= story.estimate
               | points
       - else
-        li
-          a.type= story.story_type
+        li(class='#{story.story_type}')
+          a.type= Type[story.story_type]
       li.state
         = story.current_state
       li.due_date

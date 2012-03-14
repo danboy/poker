@@ -1,8 +1,10 @@
 h1 Welcome
 ul
-  li
-    a(href='/login') Login
-  li
-    a(href='/users') List Users
-  li
-    a(href='/trackers') List Pivotal Trackers
+  - if (everyauth.loggedIn)
+    li
+      a(href='/users') List Users
+    li
+      a(href='/trackers') List Pivotal Trackers
+  - else
+    li
+      a(href='/login') Login

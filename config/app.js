@@ -21,6 +21,12 @@ module.exports.config = function(c){
     app.use(express.session({ store: new RedisStore, secret: 'applesauce' }));
     app.use(everyauth.middleware());
     app.use(app.router);
+    app.use(require('stylus').middleware({
+      src: __dirname + '/public/css/stylus/'
+    , dest: __dirname + '/public'
+    , debug: true
+    , force: true
+    }));
     app.use(express.static( c.paths.dir + '/public' ));
   });
 
