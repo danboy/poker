@@ -30,8 +30,9 @@ module.exports.config = function(c){
   app.configure('production', function(){
     app.use(express.errorHandler()); 
   });
-  require('../lib/poker.js').init({
-      Redis:  Redis
-    , app:    app
-  });
+  app.redis = Redis.createClient();
+  //require('../lib/poker.js').init({
+  //    Redis:  Redis
+  //  , app:    app
+  //});
 }

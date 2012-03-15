@@ -22,6 +22,7 @@ var actions = {
 
   show: function( req, res){
     //
+    if(!req.session.token){res.redirect('/')}
     Pivotal.useToken(req.session.token);
     Pivotal.getIterations(req.params.project,{group: '/current_backlog'}, function(err,results){
       res.render('projects/show',{
@@ -33,22 +34,38 @@ var actions = {
     });
 
     if(!app.gameSocketServers[req.params.project]){
-      var sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"};
-      var server = app.sjs.createServer(sockjs_opts);
-
+        var sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
+        , server = app.sjs.createServer(sockjs_opts);
+        console.log(req.params.project);
+      app.redis.hmset('ipm'+req.params.project.toString(), {slide: 0, games: {}})
       server.on('connection', function(conn) {
-        server.on('start', function(data){
+        server.on('present', function(data){
           conn.write(JSON.stringify(data));
         });
       });
 
-      server.installHandlers(app, {prefix:'[/]game_socket/' + req.params.project});
+      server.installHandlers(app, {prefix:'[/]ipm/' + req.params.project});
       app.gameSocketServers[req.params.project] = server;
     }
   },
-  startGame: function(req,res){
+  present: function(req,res){
+    var slide = 0;
     server = app.gameSocketServers[req.body.projectId];
-    server.emit('start',{'instruction': req.body.instruction, 'slide': req.body.slide})
+    app.redis.hgetall('ipm'+req.body.projectId,function(err, obj){
+      switch(req.body.instruction){
+        case 'start':
+          slide = (parseInt(obj.slide))+1;
+          break;
+        case 'next':
+          slide = (parseInt(obj.slide))+1;
+          break;
+        case 'previous':
+          slide = (parseInt(obj.slide))-1;
+          break;
+      }
+      server.emit('present',{'instruction': req.body.instruction, 'slide': slide})
+      app.redis.hmset('ipm'+req.body.projectId.toString(), 'slide', slide);
+    });
   }
 
 }

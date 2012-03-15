@@ -1,7 +1,7 @@
-Presentation = function(list,sock){
+Presentation = function(list,sock,slide){
   this.list = $(list);
   this.projectId = sock;
-  this.slide = 0;
+  this.slide = slide || 0;
   this.init();
 }
 
@@ -31,8 +31,9 @@ Presentation.prototype = {
   },
   message: function(message,slide){
     var self = this;
+    console.log(self);
     $.ajax({
-      url: '/projects/start_game'
+      url: '/projects/present'
     , data: {
         projectId: this.projectId
       , instruction: message
