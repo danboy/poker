@@ -3,14 +3,8 @@ module.exports.config = function(c){
 
   var app = c.app
     , express = c.express
-    , everyauth = c.everyauth
     , Redis = c.Redis
     , RedisStore = c.RedisStore;
-
-  require('../lib/auth.js').auth({
-      everyauth: everyauth
-    , app: app
-  });
 
   app.configure(function(){
     app.set('views', c.paths.views);
@@ -19,11 +13,10 @@ module.exports.config = function(c){
     app.use(express.methodOverride());
     app.use(express.cookieParser());
     app.use(express.session({ store: new RedisStore, secret: 'applesauce' }));
-    app.use(everyauth.middleware());
     app.use(app.router);
     app.use(require('stylus').middleware({
-      src: __dirname + '/public/css/stylus/'
-    , dest: __dirname + '/public'
+      src: app.dir + '/public/css/stylus/'
+    , dest: app.dir + '/public'
     , debug: true
     , force: true
     }));
@@ -37,7 +30,6 @@ module.exports.config = function(c){
   app.configure('production', function(){
     app.use(express.errorHandler()); 
   });
-  everyauth.helpExpress(app);
   require('../lib/poker.js').init({
       Redis:  Redis
     , app:    app

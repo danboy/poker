@@ -1,0 +1,119 @@
+mixin story(story, due)
+  article(class='story #{story.story_type}')
+    menu
+      - if(story.estimate != undefined)
+          li.estimate
+            - if(story.estimate == '-1')
+              strong( data-story='#{story.id}') estimate
+            - else
+              strong= story.estimate
+              | points
+      - else
+          li.type= story.story_type
+      li= story.current_state
+      li.labels= story.labels
+      li.due
+        strong= due.Month
+        #{due.date}
+    h3= story.name
+    details( open: 'open')
+      summary
+      = story.description
+      - if (story.notes)
+        .notes
+          - each note in story.notes
+            - if (note.text)
+              .note= note.text
+            - else
+              - each n in note
+                .note= n.text
+
+menu
+  li.button#present Start Presentation
+ol#iterations
+  - each iteration in iterations
+    li
+      - var due = formatDate(iteration.finish);
+      - var start = formatDate(iteration.start);
+      h2 #{start.Day}, #{start.Month} #{start.date}
+      - if(iteration.stories.story)
+        - if (iteration.stories.story && !iteration.stories.story.id)
+          - each story in iteration.stories.story
+            mixin story(story, due)
+        - else if (iteration.stories.story && iteration.stories.story.id)
+          mixin story(iteration.stories.story, due)
+
+
+script(src="/js/presenter.js")
+script(src="/js/poker.js")
+script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
+script
+  var sock = new SockJS(window.location.origin + '/game_socket/#{projectId}');
+  sock.onmessage = function(message) {
+    var data = JSON.parse(message.data);
+    switch(data.instruction){
+      case 'start':
+        pres = new Presentation('.story', #{projectId});
+        pres.start();
+      break;
+      case 'next':
+        pres.next();
+      break;
+      case 'previous':
+        pres.previous();
+      break;
+      case 'stop':
+        pres.stop();
+      break;
+    }
+  };
+  sock.onclose = function(m) {
+    console.log('closed',m.status,m.reason);
+    pres.stop();
+  };
+  $('#present').click(function(ev){
+    console.log('click');
+    ev.preventDefault();
+    $.ajax({
+      url: '/projects/start_game'
+    , data: {
+      projectId: #{projectId}
+      , instruction: 'start'
+      }
+    , type: 'POST'
+    , error : function(xhr, ajaxOptions,err) {
+        console.log(err);
+      }
+    , success: function(resp){
+        console.log('data',resp.data);
+      }
+    });
+  });
+
+  var poker = new SockJS('/poker');
+  poker.onopen = function() {
+    console.log('open');
+  };
+  poker.onmessage = function(message) {
+    var results = JSON.parse(message.data);
+    switch(results.type){
+    //switch this to a callback
+    case "estimate":
+      $('.game_board .countdown').html('<ol class="result"></ol>');
+      for(key in results.results){
+        if(results.results[key] !== null && results.results[key] > 0){
+          size = results.results[key];
+          $('.result').append('<li class="size_'+size+'">'+key+'<small>'+size+'</small></li>');
+        }
+      }
+      $('.close').click(function(){$('.game_board').remove();});
+    break;
+    default:
+      console.log('default');
+    }
+  };
+  poker.onclose = function(m) {
+    $('.game_board').remove();
+    return poker = new SockJS('http://rsp.pinmonkey.com:3000/poker');
+  };
+

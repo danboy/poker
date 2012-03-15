@@ -1,5 +1,5 @@
-var everyauth = require('everyauth')
-  , Pivotal = require('pivotal')
+var Pivotal = require('pivotal');
+
 var actions = {
   index: function( req, res ){
     Pivotal.useToken(req.user.token);
@@ -14,7 +14,7 @@ var actions = {
 
   new: function( req, res ){
     res.render('trackers/new',{
-      title: "New User"
+      title: "New Tracker"
     });
   },
 
@@ -65,6 +65,11 @@ var actions = {
     server.emit('start',{'instruction': req.body.instruction, 'slide': req.body.slide})
   },
   daysLeft: function(time){
+  },
+  getToken: function(req, res){
+    Pivotal.getToken( req.body.username, req.body.password, function(token){
+      res.send({token: token});
+    });
   }
 }
 module.exports = actions;

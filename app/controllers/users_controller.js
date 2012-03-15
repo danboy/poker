@@ -62,6 +62,7 @@ var actions = {
             title: 'Users'
           , login: user.login
           , name: user.name
+          , tracker: user.tracker
           , id: user.id
         });
       }

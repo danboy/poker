@@ -1,10 +1,17 @@
-h1 Welcome
-ul
-  - if (everyauth.loggedIn)
-    li
-      a(href='/users') List Users
-    li
-      a(href='/trackers') List Pivotal Trackers
-  - else
-    li
-      a(href='/login') Login
+h2 Enter your pivotal login
+form( action='/', method='post', 'class'='step1' )
+  div
+    label( for='login' ) pivotal login
+    input( name='username' )
+  div
+    label( for='password' ) pivotal password
+    input( name='password', type='password' )
+  div.submit
+    input( type='submit', id='login' )
+h1 Or enter Your Pivotal API key.
+form( action='/', method='post', 'class'='step1' )
+  div
+    label( for='key' ) pivotal API key
+    input( name='key' )
+  div.submit
+    input( type='submit', id='login' )

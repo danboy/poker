@@ -12,5 +12,8 @@ form( action='/users/update', method='post' )
   div
     label( for='password' ) password
     input( name='user[password]' )
+  div
+    label( for='tracker' ) Tracker API Key
+    input( name='user[tracker_id]', value='#{tracker}' )
   div.submit
     input( type='submit' )

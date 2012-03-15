@@ -7,7 +7,6 @@ var _ = require('underscore')
   , RedisStore = require('connect-redis')(express)
   , Pivotal = require('pivotal')
   , mongoose = require('mongoose')
-  , everyauth = require('everyauth')
   , app = module.exports = express.createServer()
   , sockjs = require('sockjs')
   , sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
@@ -18,7 +17,6 @@ var _ = require('underscore')
        , Resource: Resource
        , Redis: Redis
        , RedisStore: RedisStore
-       , everyauth: everyauth
        , paths: {
            'dir'          : dir
          , 'views'        : app_root + '/views'
@@ -46,6 +44,8 @@ require('./config/models.js').config(conf);
 require('./config/app.js').config(conf);
 // Routes
 require('./config/routes.js').routes(conf);
+//helpers
+app.helpers(require('./config/helpers.js'));
 
 //Index resources
 app.listen(app.port);
