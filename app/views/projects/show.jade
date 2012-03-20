@@ -19,15 +19,15 @@ mixin story(story, due)
     details( open: 'open')
       summary
       - if(typeof(story.description) == "string")
-        = story.description
+        != replaceUrl(story.description)
       - if (story.notes)
         .notes
           - each note in story.notes
             - if (note.text)
-              .note= note.text
+              .note= replaceUrl(note.text)
             - else
               - each n in note
-                .note= n.text
+                .note= replaceUrl(n.text)
 
 menu
   li.button#present Start Presentation
@@ -54,24 +54,26 @@ script
     console.log(message);
     var data = JSON.parse(message.data);
     switch(data.instruction){
-      case 'start':
-        pres = new Presentation('.story', #{projectId}, data.slide);
-        pres.start(data.slide);
+    case 'start':
+      pres = new Presentation('.story', #{projectId}, data.slide);
+      pres.start(data.slide);
       break;
-      case 'next':
-        if(typeof(pres) == 'undefined'){
-          pres = new Presentation('.story', #{projectId});
-        }
-        pres.show(data.slide);
+    case 'next':
+      if(typeof(pres) == 'undefined'){
+        pres = new Presentation('.story', #{projectId});
+      }
+      pres.show(data.slide);
       break;
-      case 'previous':
-        if(typeof(pres) == 'undefined'){
-          pres = new Presentation('.story', #{projectId});
-        }
-        pres.show(data.slide);
+    case 'previous':
+      if(typeof(pres) == 'undefined'){
+        pres = new Presentation('.story', #{projectId});
+      }
+      pres.show(data.slide);
+    break;
+    case 'stop':
+      pres.stop();
       break;
-      case 'stop':
-        pres.stop();
+    default:
       break;
     }
     console.log(data.slide);

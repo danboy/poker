@@ -53,15 +53,18 @@ var actions = {
     server = app.gameSocketServers[req.body.projectId];
     app.redis.hgetall('ipm'+req.body.projectId,function(err, obj){
       switch(req.body.instruction){
-        case 'start':
-          slide = (parseInt(obj.slide))+1;
-          break;
-        case 'next':
-          slide = (parseInt(obj.slide))+1;
-          break;
-        case 'previous':
-          slide = (parseInt(obj.slide))-1;
-          break;
+      case 'start':
+        slide = (parseInt(obj.slide))+1;
+        break;
+      case 'next':
+        slide = (parseInt(obj.slide))+1;
+        break;
+      case 'previous':
+        slide = (parseInt(obj.slide))-1;
+        break;
+      default:
+        slide = (parseInt(obj.slide));
+        break;
       }
       server.emit('present',{'instruction': req.body.instruction, 'slide': slide})
       app.redis.hmset('ipm'+req.body.projectId.toString(), 'slide', slide);

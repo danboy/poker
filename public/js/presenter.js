@@ -43,9 +43,6 @@ Presentation.prototype = {
     , error : function(xhr, ajaxOptions,err) {
         console.log(err);
       }
-    , success: function(resp){
-        console.log('data',resp.data);
-      }
     });
   },
   setKeys: function(){

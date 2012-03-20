@@ -11,6 +11,12 @@ var Helpers = {
     d.date = d.getDate();
     return d;
   }
+, replaceUrl: function(url){
+    return url.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi, function($0) { 
+       if ($0.length > 20 ) return "<a href='" + $0 + "' target='_blank'>"+$0.substring(7,30)+"</a>" 
+       else return "<a href='" + $0 + "' target='_blank'>" + $0 + "</a>"
+    });
+  }
 };
 
 module.exports = Helpers;
