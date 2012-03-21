@@ -48,22 +48,8 @@ var actions = {
 
         conn.on('data', function(m){
           app.redis.hgetall('ipm'+m.project,function(err, obj){
-            switch(m.instruction){
-            case 'start':
-              slide = (parseInt(m.slide))+1;
-              break;
-            case 'next':
-              slide = (parseInt(obj.slide))+1;
-              break;
-            case 'previous':
-              slide = (parseInt(obj.slide))-1;
-              break;
-            default:
-              slide = (parseInt(obj.slide));
-              break;
-            }
-            server.emit('present',{'instruction': m.instruction, 'slide': slide})
-            app.redis.hmset('ipm'+m.project, 'slide', slide);
+            server.emit('present',{'instruction': m.instruction, 'slide': m.slide});
+            app.redis.hmset('ipm'+m.project, 'slide', obj.slide);
           });
         });
       });

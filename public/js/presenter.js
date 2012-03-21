@@ -1,8 +1,9 @@
-Presentation = function(list,sock,slide){
+Presentation = function(list, projectId, slide){
   this.list = $(list);
-  this.projectId = sock;
+  this.projectId = projectId;
   this.slide = slide || 0;
   this.init();
+  this.sock = new SockJS(window.location.origin + '/ipm/'+projectId);
 }
 
 Presentation.prototype = {
@@ -32,27 +33,18 @@ Presentation.prototype = {
   message: function(message,slide){
     var self = this;
     console.log(self);
-    $.ajax({
-      url: '/projects/present'
-    , data: {
-        projectId: this.projectId
-      , instruction: message
-      , slide: self.slide
-      }
-    , type: 'POST'
-    , error : function(xhr, ajaxOptions,err) {
-        console.log(err);
-      }
-    });
+    this.sock.send({instruction: 'start',slide: this.slide, project: this.projectId});
   },
   setKeys: function(){
     var self = this;
     $(document).keypress(function(e){
       switch(e.keyCode){
       case 106:
+        self.slide++;
         self.message('next');
         break;
       case 107:
+        self.slide--;
         self.message('previous');
         break;
       case 113:

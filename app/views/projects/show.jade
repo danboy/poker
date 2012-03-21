@@ -11,6 +11,11 @@ mixin story(story, due)
       - else
           li.type= story.story_type
       li= story.current_state
+      li.placeholder
+        menu.tools
+          li delete
+          li unassign
+          li icebox
       li.labels= story.labels
       li.due
         strong= due.Month
@@ -51,32 +56,11 @@ script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
 script
   var sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
   sock.onmessage = function(message) {
-    console.log(message);
     var data = JSON.parse(message.data);
-    switch(data.instruction){
-    case 'start':
-      pres = new Presentation('.story', #{projectId}, data.slide);
-      pres.start(data.slide);
-      break;
-    case 'next':
       if(typeof(pres) == 'undefined'){
-        pres = new Presentation('.story', #{projectId});
+        pres = new Presentation('.story', #{projectId}, data.slide);
       }
       pres.show(data.slide);
-      break;
-    case 'previous':
-      if(typeof(pres) == 'undefined'){
-        pres = new Presentation('.story', #{projectId});
-      }
-      pres.show(data.slide);
-    break;
-    case 'stop':
-      pres.stop();
-      break;
-    default:
-      break;
-    }
-    console.log(data.slide);
   };
   sock.onclose = function(m) {
     console.log('closed',m.status,m.reason);
