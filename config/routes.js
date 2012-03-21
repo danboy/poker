@@ -12,7 +12,6 @@ module.exports = {
 
     trackerResources = app.resource("trackers", trackers);
     trackerResources.map('post', '/get_token', trackers.getToken);
-    Projects.map('post', '/present', projects.present);
     trackerResources.map('post', '/get_iteration', trackers.getIteration);
 
   }
