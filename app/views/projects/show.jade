@@ -64,6 +64,7 @@ script
   };
   sock.onclose = function(m) {
     console.log('closed',m.status,m.reason);
+    //window.location.reload();
     pres.stop();
   };
   $('#present').click(function(ev){
