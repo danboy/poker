@@ -2,7 +2,8 @@ h2 Enter your pivotal login
 form( action='/', method='post', 'class'='step1' )
   div
     label( for='login' ) pivotal login
-    input( name='username' )
+    - if (!username){var username='';}
+    input( name='username' , value='#{username}')
   div
     label( for='password' ) pivotal password
     input( name='password', type='password' )

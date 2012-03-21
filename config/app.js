@@ -30,6 +30,9 @@ module.exports.config = function(c){
   app.configure('production', function(){
     app.use(express.errorHandler()); 
   });
+
+  app.dynamicHelpers({ messages: require('express-messages') });
+  
   app.redis = Redis.createClient();
   //require('../lib/poker.js').init({
   //    Redis:  Redis

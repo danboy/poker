@@ -24,10 +24,10 @@ mixin story(story, due)
         .notes
           - each note in story.notes
             - if (note.text)
-              .note= replaceUrl(note.text)
+              .note!= replaceUrl(note.text)
             - else
               - each n in note
-                .note= replaceUrl(n.text)
+                .note!= replaceUrl(n.text)
 
 menu
   li.button#present Start Presentation
@@ -84,20 +84,7 @@ script
   };
   $('#present').click(function(ev){
     ev.preventDefault();
-    $.ajax({
-      url: '/projects/present'
-    , data: {
-      projectId: #{projectId}
-      , instruction: 'start'
-      }
-    , type: 'POST'
-    , error : function(xhr, ajaxOptions,err) {
-        console.log(err);
-      }
-    , success: function(resp){
-        //console.log('data',resp.data);
-      }
-    });
+    sock.send({instruction: 'start',slide: 0, project: #{projectId}});
   });
 
 

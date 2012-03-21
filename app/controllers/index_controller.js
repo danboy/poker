@@ -14,8 +14,16 @@ var actions = {
 , create: function(req, res){
     if(req.body.username){
     Pivotal.getToken(req.body.username, req.body.password, function(err, token){
-      req.session.token = token.guid;
-      res.redirect('/projects');
+      if(!err){
+        req.session.token = token.guid;
+        res.redirect('/projects');
+      }else{
+        req.flash('error', 'Error: '+err.code+' '+err.desc);
+        res.render('index',{
+          title: 'Login error'
+        , username: req.body.username
+        });
+      }
     });
     }else{
       req.session.token = req.body.key;

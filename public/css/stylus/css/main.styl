@@ -703,6 +703,9 @@ form {
   width: auto;
   margin: 10px 0;
 }
+#messages{
+  width: 960px;
+}
 }
 details summary:after{
   display: block;
@@ -711,4 +714,19 @@ details summary:after{
 }
 details[open] summary:after{
   content: "-";
+}
+#messages{
+  margin: 10px auto;
+  font-size: 1.6em;
+  ul{
+    list-style: none;
+    &.error{
+      border: 1px solid #900;
+      background: #C33;
+      padding: 10px;
+      border-radius: 2px;
+      color: #FFF;
+      font-weight: bold;
+    }
+  }
 }

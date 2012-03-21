@@ -2,6 +2,7 @@ var Pivotal = require('pivotal');
 
 var actions = {
   index: function( req, res ){
+    if(!req.session.token){res.redirect('/')}
     Pivotal.useToken(req.session.token);
     Pivotal.getProjects(function(err,results){
       res.render('projects/index',{
@@ -34,13 +35,36 @@ var actions = {
     });
 
     if(!app.gameSocketServers[req.params.project]){
-        var sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
-        , server = app.sjs.createServer(sockjs_opts);
-        console.log(req.params.project);
+      var sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
+      , server = app.sjs.createServer(sockjs_opts);
+
       app.redis.hmset('ipm'+req.params.project.toString(), {slide: 0, games: {}})
+
       server.on('connection', function(conn) {
+
         server.on('present', function(data){
           conn.write(JSON.stringify(data));
+        });
+
+        conn.on('data', function(m){
+          app.redis.hgetall('ipm'+m.project,function(err, obj){
+            switch(m.instruction){
+            case 'start':
+              slide = (parseInt(m.slide))+1;
+              break;
+            case 'next':
+              slide = (parseInt(obj.slide))+1;
+              break;
+            case 'previous':
+              slide = (parseInt(obj.slide))-1;
+              break;
+            default:
+              slide = (parseInt(obj.slide));
+              break;
+            }
+            server.emit('present',{'instruction': m.instruction, 'slide': slide})
+            app.redis.hmset('ipm'+m.project, 'slide', slide);
+          });
         });
       });
 
