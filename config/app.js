@@ -31,11 +31,19 @@ module.exports.config = function(c){
     app.use(express.errorHandler()); 
   });
 
-  app.dynamicHelpers({ messages: require('express-messages') });
+  app.dynamicHelpers({
+    messages: require('express-messages')
+
+  , hasToken: function (req, res) {
+      return req.session.token;
+    }
+  });
+
+  app.get( '/logout', function(req, res){
+    req.session.token = null;
+    res.redirect('/');
+  });
   
   app.redis = Redis.createClient();
-  //require('../lib/poker.js').init({
-  //    Redis:  Redis
-  //  , app:    app
-  //});
+  
 }

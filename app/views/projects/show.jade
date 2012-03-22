@@ -57,10 +57,14 @@ script
   var sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
   sock.onmessage = function(message) {
     var data = JSON.parse(message.data);
+    if(data.instruction !== 'poker'){
       if(typeof(pres) == 'undefined'){
         pres = new Presentation('.story', #{projectId}, data.slide);
       }
       pres.show(data.slide);
+    }else{
+      console.log('poker');
+    }
   };
   sock.onclose = function(m) {
     console.log('closed',m.status,m.reason);

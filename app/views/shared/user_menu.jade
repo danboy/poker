@@ -1,3 +1,4 @@
-menu
-  li.button.opt
-    a(href="/trackers/") my trackers
+- if (hasToken)
+  menu
+    li.button.opt
+      a(href="/logout") logout

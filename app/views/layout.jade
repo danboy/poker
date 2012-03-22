@@ -14,9 +14,10 @@ html(lang='en')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
     script(src="/js/mustache.js")
   body
+    header
+      include shared/user_menu
     != messages()
     section
       block content
         !{body}
-    block scripts
-      script
+    section#modals

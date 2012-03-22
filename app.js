@@ -6,7 +6,6 @@ var _ = require('underscore')
   , Redis = require('redis')
   , RedisStore = require('connect-redis')(express)
   , Pivotal = require('pivotal')
-  , mongoose = require('mongoose')
   , app = module.exports = express.createServer()
   , sockjs = require('sockjs')
   , sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
@@ -21,7 +20,6 @@ var _ = require('underscore')
            'dir'          : dir
          , 'views'        : app_root + '/views'
          , 'controllers'  : app_root + '/controllers'
-         , 'lib'          : dir + '/lib'
        }
        , app: app
   };
@@ -32,18 +30,16 @@ global.crypto = require('crypto');
 app.dir = __dirname;
 app.gameSocketServers = {};
 app.sjs = sockjs;
-app.db = mongoose;
 app.port = process.env.PORT || 3000;
 
 // Global objects
 global.app = app;
 global._ = _;
-// Models
-require('./config/models.js').config(conf);
 // Configuration
 require('./config/app.js').config(conf);
 // Routes
 require('./config/routes.js').routes(conf);
+
 //helpers
 app.helpers(require('./config/helpers.js'));
 

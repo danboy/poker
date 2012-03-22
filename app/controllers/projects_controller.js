@@ -13,14 +13,6 @@ var actions = {
     });
   },
 
-  new: function( req, res ){
-    //
-  },
-
-  create: function( req, res){
-    //
-  },
-
   show: function( req, res){
     //
     if(!req.session.token){res.redirect('/')}

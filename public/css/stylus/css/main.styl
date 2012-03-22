@@ -252,14 +252,13 @@ form div input {
 
 form div input:focus {
   border: 1px solid #2c5aa0;
-  color: #900;
+  color: #89B556;
 }
 
 form div input[type="submit"] {
   border: 0;
   padding: 0 12px;
   margin-top: 20px;
-  background: #900;
   background: #2c5aa0;
   color: #fff;
   font-weight: bold;
@@ -728,5 +727,27 @@ details[open] summary:after{
       color: #FFF;
       font-weight: bold;
     }
+  }
+}
+section#modals{
+  width: 100%;
+  font-size: 16px;
+  display: block;
+  position: fixed;
+  margin: 0 0 0 -50%;
+  z-index: 101;
+  top: 20px;
+  left: 50%;
+  text-align: center;
+  border: 0 none;
+  background: none;
+  .modal{
+    display: none;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    box-shadow: 0 0 10px 8px rgba(137,181,86,.7);
+    background: #eee;
   }
 }
