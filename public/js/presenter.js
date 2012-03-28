@@ -33,7 +33,7 @@ Presentation.prototype = {
   message: function(message,slide){
     var self = this;
     console.log(self);
-    this.sock.send({instruction: 'start',slide: this.slide, project: this.projectId});
+    this.sock.send({instruction: message,slide: this.slide, project: this.projectId});
   },
   setKeys: function(){
     var self = this;
@@ -44,13 +44,43 @@ Presentation.prototype = {
         self.message('next');
         break;
       case 107:
-        self.slide--;
+        if(self.slide >0)
+          self.slide--;
         self.message('previous');
         break;
       case 113:
         self.message('stop');
         break;
       default:
+        break;
+      };
+    });
+    $(document).keyup(function(e){
+      switch(e.keyCode){
+      case 27:
+        self.message('stop');
+        break;
+      case 38:
+        self.slide++;
+        self.message('next');
+        break;
+      case 40:
+        console.log(self.slide);
+        if(self.slide > 0)
+          self.slide--;
+        self.message('previous');
+        break;
+      case 39:
+        self.slide++;
+        self.message('next');
+        break;
+      case 37:
+        if(self.slide > 0)
+          self.slide--;
+        self.message('previous');
+        break;
+      default:
+        console.log(e.keyCode);
         break;
       };
     });

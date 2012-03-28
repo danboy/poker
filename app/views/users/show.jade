@@ -1,9 +1,0 @@
-h1= login
-  a.button(href='/users/#{login}/edit') edit
-h2= name
-
-- if (user.token)
-  a.button(href='/trackers')= user.token
-- else
-  a.button(href="/trackers/new") add a pivotal account
-

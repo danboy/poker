@@ -3,16 +3,16 @@ form( action='/', method='post', 'class'='step1' )
   div
     label( for='login' ) pivotal login
     - if (!username){var username='';}
-    input( name='username' , value='#{username}')
+    input( name='username' , value='#{user}', required='required', placeholder='user@email.com', type='email')
   div
     label( for='password' ) pivotal password
-    input( name='password', type='password' )
+    input( name='password', type='password', required='required')
   div.submit
     input( type='submit', id='login' )
 h1 Or enter Your Pivotal API key.
 form( action='/', method='post', 'class'='step1' )
   div
     label( for='key' ) pivotal API key
-    input( name='key' )
+    input( name='key', required='required' )
   div.submit
     input( type='submit', id='login' )

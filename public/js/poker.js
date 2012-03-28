@@ -1,10 +1,10 @@
 var Game = Game || {};
-Game = function(element,sock){
+Game = function(id, sock, points, user){
+  this.points = points;
+  this.user = user;
   this.sock = sock;
-  this.item = $(element);
   this.sock = sock;
-  this.id = this.item.data('story');
-  this.el = $(this.item.parents('.story'));
+  this.id = id;
   this.createBoard();
 }
 
@@ -13,28 +13,26 @@ Game.prototype = {
     var templates = {cards: Board.cards}
     var board = Mustache.to_html(Board.template,{
         'id': this.id
-      , 'title': this.el.contents('.title').text()
-      , 'description': this.el.contents('.description').html()
-      , 'points': this.points()
+      , 'class': 'modal'
+      , 'title': ''
+      , 'description': ''
+      , 'points': this.points
     },templates);
-    $('body').append(board);
+    $('#modals').append(board).show();
     this.setListeners();
-  },
-  points: function(){
-    return [1,2,4,8];
   },
   setListeners: function(){
     self = this;
     var game = $('#'+this.id);
     game.find('ol li').click(function(ev){
       ev.preventDefault();
-      self.sock.send({id: self.id, estimate: $(this).find('a').data('estimate')});
+      self.sock.send({'instruction': 'estimate', story: self.id, estimate: $(this).find('a').data('estimate'), user: self.user});
       game.find('ol').remove();
       clock = new Countdown(5,function(count){
         $('.game_board .countdown').html(count).show();
       });
       setTimeout(function(){
-        self.sock.send( { finished: true, id: self.id });
+        self.sock.send( { instruction: 'results' , story: self.id });
         clock.count = -1;
       },5000);
     });
@@ -44,11 +42,12 @@ Game.prototype = {
     game.find('.button').click(function(){
       self.sock.send( { finished: true, id: self.id });
     });
+    console.log('listen up',this.id);
   }
 };
 
 var Board = {
-    template:  "<div id=\"{{id}}\" class=\"game_board\"><a class=\"close button\">close</a><h1>{{title}}</h1><div class=\"countdown\"></div>{{>cards}}</div>"
+    template:  "<div id=\"{{id}}\" class=\"game_board modal\"><a class=\"close button\">close</a><h1>{{title}}</h1><div class=\"countdown\"></div>{{>cards}}</div>"
   , cards:     "<ol>{{#points}}<li><a data-estimate=\"{{.}}\">{{.}}</a></li>{{/points}}</ol>"
 }
 

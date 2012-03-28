@@ -17,12 +17,15 @@ var actions = {
     //
     if(!req.session.token){res.redirect('/')}
     Pivotal.useToken(req.session.token);
-    Pivotal.getIterations(req.params.project,{group: '/current_backlog'}, function(err,results){
-      res.render('projects/show',{
-        iterations: results.iteration
-      , projectId: req.params.project
-      , title: "Let's Have an IPM meeting and plan an IPM"
-      , trackerId: req.session.token
+    Pivotal.getProject(req.params.project,function(er, project){
+      Pivotal.getIterations(req.params.project,{group: '/current_backlog'}, function(err,results){
+        res.render('projects/show',{
+          iterations: results.iteration
+        , projectId: req.params.project
+        , project: project
+        , title: "Let's Have an IPM meeting and plan an IPM"
+        , trackerId: req.session.token
+        });
       });
     });
 
@@ -30,7 +33,7 @@ var actions = {
       var sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
       , server = app.sjs.createServer(sockjs_opts);
 
-      app.redis.hmset('ipm'+req.params.project.toString(), {slide: 0, games: {}})
+      app.redis.hmset('ipm'+req.params.project.toString(), {slide: 0, users: {}})
 
       server.on('connection', function(conn) {
 
@@ -39,7 +42,7 @@ var actions = {
         });
 
         conn.on('data', function(m){
-          app.redis.hgetall('ipm'+m.project,function(err, obj){
+          app.redis.hgetall('ipm'+m.project, function(err, obj){
             server.emit('present',{'instruction': m.instruction, 'slide': m.slide});
             app.redis.hmset('ipm'+m.project, 'slide', obj.slide);
           });

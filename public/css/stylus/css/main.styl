@@ -113,7 +113,7 @@ a:visited {
   line-height: 32px;
   overflow: none;
   vertical-align: top;
-  color: white;
+  color: #333;
   text-decoration: none;
   padding: 0 .4em;
   font-size: 1.4em;
@@ -248,6 +248,12 @@ form div input {
   -moz-transition: border 1s;
   -webkit-transition: border 1s;
   -o-transition: border 1s;
+  &:invalid{
+    border-color: #C33;
+  }
+  &:focus:invalid{
+    color: #C33;
+  }
 }
 
 form div input:focus {
@@ -267,14 +273,25 @@ form div input[type="submit"] {
   -webkit-transition: background 1s;
   -o-transition: background 1s;
   border-radius: 3px;
+  &:hover:invalid{
+    background: #C33;
+  }
 }
-
+form div input:invalid[type="submit"] {
+  background: #C33;
+}
+::-webkit-validation-bubble {
+  border-radius: 2px;
+}
 form div.submit {
   text-align: right;
 }
 
 form div input[type="submit"]:hover {
-  background: #cc3333;
+  background: #89B556;
+  &.error{
+    background: #C33;
+  }
 }
 
 form.step2 {
@@ -590,15 +607,11 @@ ol#iterations li article h3{
 
 /* GAME */
 .game_board {
-  position: fixed;
-  top: 10%;
-  left: 50%;
   width: 480px;
   padding: 20px;
   background: #FFF;
   border: 1px solid #DDD;
   color: #333;
-  margin-left: -240px;
   text-align: center;
   border-radius: 4px;
 }
@@ -732,7 +745,7 @@ details[open] summary:after{
 section#modals{
   width: 100%;
   font-size: 16px;
-  display: block;
+  display: none;
   position: fixed;
   margin: 0 0 0 -50%;
   z-index: 101;
@@ -742,12 +755,11 @@ section#modals{
   border: 0 none;
   background: none;
   .modal{
-    display: none;
     margin: 0 auto;
     padding: 10px;
     border: 1px solid #bbb;
     border-radius: 2px;
-    box-shadow: 0 0 10px 8px rgba(137,181,86,.7);
+    box-shadow: 0 0 0px 8px rgba(51,51,51,.7);
     background: #eee;
   }
 }

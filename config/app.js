@@ -34,8 +34,11 @@ module.exports.config = function(c){
   app.dynamicHelpers({
     messages: require('express-messages')
 
-  , hasToken: function (req, res) {
+  , hasToken: function (req, res){
       return req.session.token;
+    }
+  , user: function(req, res){
+      return req.session.user
     }
   });
 

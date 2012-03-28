@@ -2,7 +2,7 @@ mixin story(story, due)
   article(class='story #{story.story_type}')
     menu
       - if(story.estimate != undefined)
-          li.estimate
+        li.estimate('data-storyId'=story.id)
             - if(story.estimate == '-1')
               a( data-story='#{story.id}', 'class'='estimate') estimate
             - else
@@ -33,7 +33,7 @@ mixin story(story, due)
             - else
               - each n in note
                 .note!= replaceUrl(n.text)
-
+h1= project.name
 menu
   li.button#present Start Presentation
 ol#iterations
@@ -57,23 +57,16 @@ script
   var sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
   sock.onmessage = function(message) {
     var data = JSON.parse(message.data);
-    if(data.instruction !== 'poker'){
-      if(typeof(pres) == 'undefined'){
-        pres = new Presentation('.story', #{projectId}, data.slide);
-      }
-      pres.show(data.slide);
-    }else{
-      console.log('poker');
-    }
-  };
+    if(typeof(pres) == 'undefined')
+      pres = new Presentation('.story', '#{projectId}', data.slide);
+    pres.show(data.slide);
+
+  }
   sock.onclose = function(m) {
-    console.log('closed',m.status,m.reason);
-    //window.location.reload();
-    pres.stop();
+    sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
   };
+
   $('#present').click(function(ev){
     ev.preventDefault();
-    sock.send({instruction: 'start',slide: 0, project: #{projectId}});
+    sock.send({instruction: '', slide: 0, project: '#{projectId}'});
   });
-
-

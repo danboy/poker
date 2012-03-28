@@ -1,9 +1,0 @@
-h1 #{total} Users
-ul
-  each user in users
-    li
-      = user.name + " "
-      a( href='/users/#{user.login}' ) (#{user.login})
-      form(action='/users/#{user.login}', method='post')
-        input(type='hidden', name='_method', value='DELETE')
-        input.button(type='submit')

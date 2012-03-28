@@ -15,6 +15,7 @@ var actions = {
     if(req.body.username){
     Pivotal.getToken(req.body.username, req.body.password, function(err, token){
       if(!err){
+        req.session.user = req.body.username.split('@')[0]
         req.session.token = token.guid;
         res.redirect('/projects');
       }else{
