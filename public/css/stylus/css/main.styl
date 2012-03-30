@@ -283,6 +283,23 @@ form div input:invalid[type="submit"] {
 ::-webkit-validation-bubble {
   border-radius: 2px;
 }
+::-webkit-validation-bubble-arrow {
+  border-radius: 2px;
+  box-shadow: none;
+  border: 1px solid #DDD;
+  background: #EEE;
+}
+::-webkit-validation-bubble-message {
+  border-radius: 2px;
+  box-shadow: none;
+  border: 1px solid #DDD;
+  background-color: #EEE;
+  font-size: 14px;
+}
+::-webkit-validation-bubble-message:before{
+  content: '';
+  background: none;
+}
 form div.submit {
   text-align: right;
 }
