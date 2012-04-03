@@ -11,6 +11,7 @@ mixin story(story, due)
       - else
           li.type= story.story_type
       li= story.current_state
+      li.present Start Presentation here
       li.placeholder
         menu.tools
           li delete
@@ -35,7 +36,6 @@ mixin story(story, due)
                 .note!= replaceUrl(n.text)
 h1= project.name
 menu
-  li.button#present Start Presentation
 ol#iterations
   - each iteration in iterations
     li
@@ -66,7 +66,7 @@ script
     sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
   };
 
-  $('#present').click(function(ev){
+  $('.present').click(function(ev){
     ev.preventDefault();
-    sock.send({instruction: '', slide: 0, project: '#{projectId}'});
+    sock.send({instruction: '', slide: $('.story').index($(this).parents('.story')), project: '#{projectId}'});
   });

@@ -19,4 +19,9 @@
     , "redis": "0.x.x"
     , "markdown": "0.x.x"
   }
+  , "devDependencies": {
+    "mocha": "latest"
+  , "should": "latest"
+  , "sinon": "latest"
+  }
 }
