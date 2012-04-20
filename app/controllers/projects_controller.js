@@ -1,4 +1,5 @@
-var Pivotal = require('pivotal');
+var Pivotal = require('pivotal')
+  , Socket  = require('./sockets.js');
 
 var actions = {
   index: function( req, res ){
@@ -42,10 +43,7 @@ var actions = {
         });
 
         conn.on('data', function(m){
-          app.redis.hgetall('ipm'+m.project, function(err, obj){
-            server.emit('present',{'instruction': m.instruction, 'slide': m.slide});
-            app.redis.hmset('ipm'+m.project, 'slide', obj.slide);
-          });
+          Socket.switch(m,server);
         });
       });
 

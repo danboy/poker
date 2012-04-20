@@ -60,7 +60,14 @@ script
     if(typeof(pres) == 'undefined')
       pres = new Presentation('.story', '#{projectId}', data.slide);
     pres.show(data.slide);
-
+    switch(data.instruction){
+    case 'results':
+      console.log(data);
+      break;
+    case 'launch estimate':
+      new Game($(this).data('storyid'), sock, [#{project.point_scale}], '#{user}');
+      break;
+    }
   }
   sock.onclose = function(m) {
     sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
@@ -68,5 +75,10 @@ script
 
   $('.present').click(function(ev){
     ev.preventDefault();
-    sock.send({instruction: '', slide: $('.story').index($(this).parents('.story')), project: '#{projectId}'});
+    sock.send({instruction: 'present', slide: $('.story').index($(this).parents('.story')), project: '#{projectId}'});
+  });
+  $('.estimate').click(function(ev){
+    ev.preventDefault();
+    new Estimate($(this).data('storyid'), sock, [#{project.point_scale}], '#{user}');
+    sock.send({instruction: 'launch estimate', story: $(this).data('storyid'), project: '#{projectId}'});
   });

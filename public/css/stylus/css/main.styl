@@ -510,6 +510,22 @@ ol#iterations li article{
       font-family: pinmonkey;
     }
   }
+  &.release:before{
+    border-left-color: #F90;
+  }
+  &.release menu .type{
+    display: inline-block;
+    text-indent: -100px;
+    &:after{
+      content: '%';
+      color: #F90;
+      display: inline-block;
+      margin: 4px 0 0 75px;
+      line-height: 40px;
+      font-size: 30px;
+      font-family: pinmonkey;
+    }
+  }
   &.chore:before{
     border-left-color: #FC0;
   }
@@ -524,6 +540,21 @@ ol#iterations li article{
       line-height: 40px;
       font-size: 30px;
       font-family: pinmonkey;
+    }
+  }
+  .present{
+    display: inline-block;
+    overflow: visible;
+    width: 40px;
+    padding: 0;
+    &:before{
+      content: ']';
+      display: inline-block;
+      margin: 4px 0 0 0px;
+      line-height: 40px;
+      font-size: 30px;
+      font-family: pinmonkey;
+      color: #369;
     }
   }
   details{
