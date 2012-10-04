@@ -1,0 +1,173 @@
+transition( a )
+  -webkit-transition: a
+  transition: a
+form
+  margin: 0 0
+  padding: 0
+  display: block
+  *
+    outline: none
+  fieldset
+    margin: 0 0
+    padding: 0
+    border: 0 none
+    legend
+      margin: 0
+      padding: 0
+      height: baseline
+      line-height: baseline
+    div
+      margin: 0
+      padding: 0
+      label, input
+        display: block
+        set-baseline(16px)
+        margin: baseline 0 0
+        clear: both
+      input, select
+        margin: (baseline - 10) 0 0
+        padding: 0 (baseline/4)
+        height: ((baseline+10px) - 2px )
+        line-height: (baseline - 2)
+        border: 1px solid #DDD
+        border-radius: 3px
+      &.select
+        label
+          position: relative
+          &:after
+            position: absolute
+            pointer-events: none
+            display: inline-block
+            content: ">"
+            transform(rotate(90deg))
+            font-weight: bold
+            background: #FFF
+            bottom: 5px;
+            color: form-border
+            border: 1px solid form-border
+            margin: 0 0 0 (-(baseline + 5))
+            padding: 0
+            text-align: center
+            line-height: ((baseline) - 2px )
+            height: ((baseline) -2px)
+            width: ((baseline+10px) - 2px )
+            border-radius: 3px
+        select
+          min-width: (baseline * 10 )
+          height: (baseline+10px)
+          background: transparent
+          -webkit-appearance:none;
+          -moz-appearance:none;
+          appearance:none;
+          outline: none
+          option
+            outline: none
+            line-height: ((baseline) - 2px )
+            margin: 0
+      &.check
+        label
+          display: block
+          clear: both
+        input
+          display: inline-block
+          margin: 0 (baseline/4) 0 0
+          height: auto
+      &.text
+        textarea
+          height: ((baseline * 4) - 2)
+          width: 350px
+        
+  div
+    margin: 0
+.button
+  display: inline-block
+  padding: 0 (baseline/4)
+  min-width: (baseline * 5)
+  set-baseline(14px)
+  height: ((baseline + 10px))
+  margin: (baseline - 10) baseline baseline 0
+  background: link-color
+  border: 1px solid #26A
+  border-radius: 4px
+  color: #FFF
+  font-weight: bold
+  text-transform: uppercase
+  box-shadow: 0 1px 2px 1px rgba( 0, 0, 0, .5)
+  transition( background-color 1s ease-out )
+  &.active:hover
+    background-color: #89b556;
+    border-color: #8B5
+    transition( background-color 1s ease-out )
+  &.error
+    background-color: #900;
+    border-color: #800
+  &.orange
+    background-color: #F90;
+    border-color: #E80
+  &.disabled
+    background-color: #CCC;
+    border-color: #BBB
+    color: #EEE
+  &.cancel
+    border: 0 none
+    background: none
+    color: #999
+    text-transform: lowercase
+    font-weight: normal
+    min-width: (baseline * 3)
+    box-shadow: none
+  &.hero
+    background-color: #89b556;
+    border-color: #8B5
+    height: ((baseline * 2) + 10)
+    min-width: (baseline * 8)
+  &:hover
+    border-color: 1px #BBB
+    box-shadow: 0 1px 2px 1px rgba( 0, 0, 0, .3)
+    transition( box-shadow 1s ease-in-out)
+
+@media print, screen and (min-width: 640px)
+  form
+    fieldset
+      div,
+      div.text,
+      div.check
+        label
+          display: inline-block
+          clear: none
+          width: 250px
+          vertical-align: bottom
+        input
+          display: inline-block
+          clear: none
+        &.select
+          margin-bottom: baseline
+          label:after
+            margin: 0 0 0 ((baseline*9)+250)
+          select
+            margin-left: 250px
+        &.check
+          label
+            display: block
+            float: left
+            clear: both
+            width: 270px
+            set-baseline(16px)
+          input
+            display: block
+            float: right
+            vertical-align: bottom
+        textarea
+          width: 500px
+          clear: both
+
+@media print, screen and (min-width: 800px)
+  form
+    fieldset
+      div
+        &.submit
+          margin-left: 250px
+        &.text
+          textarea
+            width: 400px
+            clear: none

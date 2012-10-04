@@ -1,0 +1,85 @@
+golden_row(g=grid)
+  column(1, (g / 1.6180339887498948482), 1)
+golden_column(g=grid)
+  column(1, (g - (g / 1.6180339887498948482)), 1)
+
+column(span=1,g=grid,c=cols)
+  column-width = g/c;
+  width: (column-width*span)-(gutter*2)
+  margin: (gutter/2);
+  padding: (gutter/2);
+  float: left;
+
+.grid
+  width: grid
+  margin: 0 auto
+  padding: 0;
+
+.row
+  margin: 0
+  padding: 0
+  clear: both
+  &.bg
+    .third,.one,.two,.three,.four,.five,.six,.seven,.eight,.nine,.ten,.eleven,.twelve,.thirteen,.fourteen,.fifteen,.sixteen,.content,.column
+      background-color: rgba(205,205,205,.5)
+      text-align: center
+.one,.two,.three,.four,.five,.six,.seven,.eight,.nine,.ten,.eleven,.twelve,.thirteen,.fourteen,.fifteen,.sixteen,.third
+  column(16)
+
+.third
+  width: (grid/3)-(gutter*2)
+  margin: (gutter/2);
+  padding: (gutter/2);
+  float: left;
+
+layout(grid)
+  .row.golden
+    .content
+      golden_row(grid)
+    .column
+      golden_column(grid)
+  .grid
+    width: grid
+  .one
+    column(1,grid)
+  .two
+    column(2,grid)
+  .three
+    column(3,grid)
+  .third
+    column(1,grid,3)
+  .four
+    column(4,grid)
+  .five
+    column(5,grid)
+  .six
+    column(6,grid)
+  .seven
+    column(7,grid)
+  .eight
+    column(8,grid)
+  .nine
+    column(9,grid)
+  .ten
+    column(10,grid)
+  .eleven
+    column(11,grid)
+  .twelve
+    column(12,grid)
+  .thirteen
+    column(13,grid)
+  .fourteen
+    column(14,grid)
+  .fifteen
+    column(15,grid)
+  .sixteen
+    column(16,grid)
+
+@media print, screen and (min-width: 640px)
+  layout(640px)
+@media print, screen and (min-width: 768px)
+  layout(768px)
+@media print, screen and (min-width: 960px)
+  layout(960px)
+@media print, screen and (min-width: 1300px)
+  layout(1280px)

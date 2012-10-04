@@ -1,0 +1,13 @@
+extends layout
+block content
+  article(class='story #{story.story_type}')
+    - if(story.estimate != undefined)
+      .estimate('data-storyId'=story.id)
+          - if(story.estimate == '-1')
+            a( data-story='#{story.id}', 'class'='estimate') estimate
+          - else
+            strong= story.estimate
+    h3= story.name
+    .description
+      - if(typeof(story.description) == "string")
+        != replaceUrl(story.description)

@@ -1,0 +1,54 @@
+body
+  table
+    set-baseline(16px)
+    border: 1px solid form-border
+    margin-bottom: (baseline/2)
+    tr
+      td,
+      th
+        border: 1px solid form-border
+        set-baseline(16px)
+        padding: ((baseline/4) - 1) ((baseline/2) - 1) (baseline/4)
+        background: #fff
+      th
+        background: #F9F9F9
+        text-shadow: -1px -1px 3px #EEE
+      &:last-child
+        th
+          padding: ((baseline/4) - 1) ((baseline/2) - 1)
+      &:nth-child(odd)
+        td
+          background: #F9F9F9
+  ol.stylish,
+  ul.stylish
+    margin: 0
+    padding: 0
+    li
+      set-baseline(16px)
+    li::marker
+      content: '☛'
+      font-style: italic
+      margin: 0 (baseline/4)
+      color: #666
+      text-shadow: -1px -1px 3px #EEE
+  ol
+    counter-reset: list
+    li::marker
+      counter-increment: list
+      content: counter(list)'. '
+      font-style: italic
+      margin: 0 (baseline/4)
+      color: #666
+      text-shadow: -1px -1px 3px #EEE
+  menu
+    li
+      border-radius: none
+      list-style: none
+      display: inline-block
+      padding: 0 (baseline/4)
+      set-baseline(12px)
+      border: 1px solid #333
+      background-color: #EEE
+      &:first-child
+        border-radius-top-left: 3px
+

@@ -1,0 +1,40 @@
+set-baseline(font-size=14px)
+  margin: 0 0 baseline
+  line-height: baseline
+  font-size: font-size
+  if font-size > baseline
+    line-height: (baseline*2)
+
+
+body
+  font: 14px font-family
+h1
+  set-baseline(24px)
+h2
+  set-baseline(22px)
+h3
+  set-baseline(20px)
+h4
+  set-baseline(18px)
+h5
+  set-baseline(16px)
+.cap
+  margin-bottom: 0
+*,
+pre
+  padding: 0;
+  margin: 0;
+  set-baseline(14px)
+pre
+  border: 1px solid form-border
+  padding: ((baseline/2) - 1)
+blockquote
+  set-baseline(18px)
+  border-left: (baseline/2) solid link-color
+  margin-left: (baseline/2)
+  padding-left: (baseline/2)
+  font-weight: bold
+
+h1,h2,h3,h4,h5,p
+  margin: 0 0 baseline
+  line-height: baseline

@@ -1,0 +1,23 @@
+body
+  section.grid
+    box-shadow: 0 0 2px 0 #DDD
+  ol#iterations
+    li
+      list-style: none
+      border: 1px solid #eee
+      border-radius: 3px
+      menu
+        li
+      &:nth-child(odd)
+        background: #F9F9F9
+      article.story
+        background: #F0F0F0
+        &.current
+          width: 100%
+          height: 100%
+          padding: 20px
+          position: fixed
+          left: 0
+          top: 0
+        .description
+          overflow: auto

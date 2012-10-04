@@ -1,0 +1,40 @@
+- console.log('IIIII\'M HERE')
+extends layout
+mixin story(story, due)
+  article(class='story #{story.story_type}')
+    menu
+      - if(story.estimate != undefined)
+        li.estimate('data-storyId'=story.id)
+            - if(story.estimate == '-1')
+              a( data-story='#{story.id}', 'class'='estimate') estimate
+            - else
+              strong= story.estimate
+              | points
+      - else
+          li.type= story.story_type
+      li= story.current_state
+      li.labels= story.labels
+      li.due
+        strong= due.Month
+        #{due.date}
+    h3= story.name
+    .notes
+    - if(typeof(story.description) == "string")
+      != replaceUrl(story.description)
+
+block content
+  ol#cards
+    - each iteration in iterations
+      li
+        - var due = formatDate(iteration.finish);
+        - var start = formatDate(iteration.start);
+        h2 #{start.Day}, #{start.Month} #{start.date}
+        - if(iteration.stories.story)
+          - if (iteration.stories.story && !iteration.stories.story.id)
+            - each story in iteration.stories.story
+              mixin story(story, due)
+          - else if (iteration.stories.story && iteration.stories.story.id)
+            mixin story(iteration.stories.story, due)
+
+
+h1 Hello
