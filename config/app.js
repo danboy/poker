@@ -9,6 +9,7 @@ module.exports.config = function(c){
   app.configure(function(){
     app.set('views', c.paths.views);
     app.set('view engine', 'jade');
+    app.set('view options', { layout: false });
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
@@ -17,8 +18,6 @@ module.exports.config = function(c){
     app.use(require('stylus').middleware({
       src: app.dir + '/public/css/stylus/'
     , dest: app.dir + '/public'
-    , debug: true
-    , force: true
     }));
     app.use(express.static( c.paths.dir + '/public' ));
   });

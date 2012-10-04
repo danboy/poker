@@ -8,7 +8,7 @@ html(lang='en')
     meta(name='description', content='')
     meta(name='author', content='')
     
-    meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1.0')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/css/10plate.css')
     
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js')
@@ -18,7 +18,6 @@ html(lang='en')
     header
       include shared/user_menu
     != messages()
-    section
+    section.grid
       block content
-        !{body}
     section#modals

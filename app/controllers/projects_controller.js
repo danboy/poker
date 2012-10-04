@@ -23,6 +23,7 @@ var actions = {
         res.render('projects/show',{
           iterations: results.iteration
         , projectId: req.params.project
+        , session: req.session
         , project: project
         , title: "Let's Have an IPM meeting and plan an IPM"
         , trackerId: req.session.token
@@ -34,7 +35,7 @@ var actions = {
       var sockjs_opts = {sockjs_url: "http://majek.github.com/sockjs-client/sockjs-latest.min.js"}
       , server = app.sjs.createServer(sockjs_opts);
 
-      app.redis.hmset('ipm'+req.params.project.toString(), {slide: 0, users: {}})
+      app.redis.hmset('ipm'+req.params.project.toString(), "slide", 0, "users", {})
 
       server.on('connection', function(conn) {
 

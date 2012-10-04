@@ -1,3 +1,4 @@
+extends ../layout
 mixin story(story, due)
   article(class='story #{story.story_type}')
     menu
@@ -12,18 +13,13 @@ mixin story(story, due)
           li.type= story.story_type
       li= story.current_state
       li.present Start Presentation here
-      li.placeholder
-        menu.tools
-          li delete
-          li unassign
-          li icebox
-      li.labels= story.labels
+      li.card
+        a( href= '/pdf/print/#{project.id}/#{story.id}') card
       li.due
         strong= due.Month
         #{due.date}
     h3= story.name
-    details( open: 'open')
-      summary
+    .description
       - if(typeof(story.description) == "string")
         != replaceUrl(story.description)
       - if (story.notes)
@@ -34,51 +30,51 @@ mixin story(story, due)
             - else
               - each n in note
                 .note!= replaceUrl(n.text)
-h1= project.name
-menu
-ol#iterations
-  - each iteration in iterations
-    li
-      - var due = formatDate(iteration.finish);
-      - var start = formatDate(iteration.start);
-      h2 #{start.Day}, #{start.Month} #{start.date}
-      - if(iteration.stories.story)
-        - if (iteration.stories.story && !iteration.stories.story.id)
-          - each story in iteration.stories.story
-            mixin story(story, due)
-        - else if (iteration.stories.story && iteration.stories.story.id)
-          mixin story(iteration.stories.story, due)
+block content
+  h1= project.name
+  ol#iterations.row
+    - each iteration in iterations
+      li.sixteen
+        - var due = formatDate(iteration.finish);
+        - var start = formatDate(iteration.start);
+        h2 #{start.Day}, #{start.Month} #{start.date}
+        - if(iteration.stories.story)
+          - if (iteration.stories.story && !iteration.stories.story.id)
+            - each story in iteration.stories.story
+              mixin story(story, due)
+          - else if (iteration.stories.story && iteration.stories.story.id)
+            mixin story(iteration.stories.story, due)
 
 
-script(src="/js/presenter.js")
-script(src="/js/poker.js")
-script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
-script
-  var sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
-  sock.onmessage = function(message) {
-    var data = JSON.parse(message.data);
-    if(typeof(pres) == 'undefined')
-      pres = new Presentation('.story', '#{projectId}', data.slide);
-    pres.show(data.slide);
-    switch(data.instruction){
-    case 'results':
-      console.log(data);
-      break;
-    case 'launch estimate':
-      new Game($(this).data('storyid'), sock, [#{project.point_scale}], '#{user}');
-      break;
+  script(src="/js/presenter.js")
+  script(src="/js/poker.js")
+  script(src="http://majek.github.com/sockjs-client/sockjs-latest.min.js")
+  script
+    var sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
+    sock.onmessage = function(message) {
+      var data = JSON.parse(message.data);
+      if(typeof(pres) == 'undefined')
+        pres = new Presentation('.story', '#{projectId}', data.slide);
+      pres.show(data.slide);
+      switch(data.instruction){
+      case 'results':
+        console.log(data);
+        break;
+      case 'launch estimate':
+        new Game($(this).data('storyid'), sock, [#{project.point_scale}], '#{user}');
+        break;
+      }
     }
-  }
-  sock.onclose = function(m) {
-    sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
-  };
+    sock.onclose = function(m) {
+      sock = new SockJS(window.location.origin + '/ipm/#{projectId}');
+    };
 
-  $('.present').click(function(ev){
-    ev.preventDefault();
-    sock.send({instruction: 'present', slide: $('.story').index($(this).parents('.story')), project: '#{projectId}'});
-  });
-  $('.estimate').click(function(ev){
-    ev.preventDefault();
-    new Estimate($(this).data('storyid'), sock, [#{project.point_scale}], '#{user}');
-    sock.send({instruction: 'launch estimate', story: $(this).data('storyid'), project: '#{projectId}'});
-  });
+    $('.present').click(function(ev){
+      ev.preventDefault();
+      sock.send({instruction: 'present', slide: $('.story').index($(this).parents('.story')), project: '#{projectId}'});
+    });
+    $('.estimate').click(function(ev){
+      ev.preventDefault();
+      new Estimate($(this).data('storyid'), sock, [#{project.point_scale}], '#{user}');
+      sock.send({instruction: 'launch estimate', story: $(this).data('storyid'), project: '#{projectId}'});
+    });

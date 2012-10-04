@@ -1,5 +1,17 @@
-@import 'main'
-@import 'slides'
+link-color = #369;
+text-color = #333;
+form-border = #DDD
+font-family = "Helvetica Neue", Helvetica, Arial, sans-serif;
+baseline = 20px;
+grid = 360px;
+cols = 16;
+radius =  3px;
+gutter = baseline;
 
-body
-  background: #EEE
+@import "lib/normalize.css"
+@import "main"
+@import "mixins/typography"
+@import "mixins/grid"
+@import "mixins/forms"
+@import "mixins/base"
+@import "client"

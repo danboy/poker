@@ -18,6 +18,7 @@
     , "connect-redis": "1.x.x"
     , "redis": "0.x.x"
     , "markdown": "0.x.x"
+    , "pdf.js": "0.x"
   }
   , "devDependencies": {
     "mocha": "latest"
