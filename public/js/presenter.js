@@ -59,6 +59,7 @@ Presentation.prototype = {
       switch(e.keyCode){
       case 27:
         self.message('stop');
+        $('.current').removeClass('current');
         break;
       case 38:
         self.slide++;

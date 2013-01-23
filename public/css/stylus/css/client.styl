@@ -1,23 +1,118 @@
+@font-face
+  font-family: 'Pinmonkey';
+  src: url('/fonts/pinmonkey.eot') format('embedded-opentype'),
+  url('/fonts/pinmonkey.svg') format('svg')
 body
-  section.grid
-    box-shadow: 0 0 2px 0 #DDD
+  background: #DDD
   ol#iterations
+    margin: 0
+    padding: 0
     li
       list-style: none
-      border: 1px solid #eee
-      border-radius: 3px
       menu
+        margin: -10px -10px 0 -10px
+        padding: 0
+        background: #999
+        border-top-left-radius: 3px
+        border-top-right-radius: 3px
         li
-      &:nth-child(odd)
-        background: #F9F9F9
+          display: inline-block
+          height: (baseline*3)
+          margin: 0
+          padding: 5px
+          vertical-align: top
+          border-left: 1px solid #AAA
+          color: #CCC
+          line-height: 60px
+          &:first-child
+            border-top-left-radius: 3px
+            border-left: 0 none
+          &.due,
+          &.estimate
+            text-align: center
+            width: (baseline*3)
+            line-height: baseline
+            strong
+              color: #FC0
+              font-size: 40px
+              line-height: 40px
+              display: block
+              clear: both
+              margin: 0
+          &.due
+            float: right
+            border-top-right-radius: 3px
+            strong
+              font-size: 32px
+          &.card
+            font-weight: bold
+            a
+              color: #fff
+              text-decoration: none
+          &.present
+            width: 60px
+            overflow: hidden
+            &:before
+              content: ']'
+              font-family: Pinmonkey
+              font-size: 50px
+              line-height: ( baseline * 3.5 )
+              margin: 0 100px 0 5px
+          &.type
+            overflow: hidden
+            width: 60px
+            &:before
+              font-family: Pinmonkey
+              font-size: 50px
+              line-height: ( baseline * 3.5 )
+              margin: 0 100px 0 5px
       article.story
+        padding: 10px
         background: #F0F0F0
+        border-radius: 3px
+        h3
+          font-size: 32px
+          line-height: (baseline*2)
+          color: #666
+        pre
+          margin: 10px
+          height: 250px
+          &:after
+            content: ' '
+            display: table
+            clear: both
+        &.bug
+          .type:before
+            content: '#'
+            color: #900
+        &.release
+          .type:before
+            content: '%'
+            color: #9D5
+        &.chore
+          .type:before
+            content: '{'
+            color: #F90
+
+      article.story
         &.current
+          background: #fff
           width: 100%
           height: 100%
-          padding: 20px
+          padding: 0
           position: fixed
           left: 0
           top: 0
+          z-index: 999
+          menu
+            padding: 10px 10px 0
+          h3
+            padding: 20px
+            font-size: 50px
+            line-height: 50px
+          .description
+            font-size: 32px
+            line-height: 32px
+            height: 500px
         .description
           overflow: auto

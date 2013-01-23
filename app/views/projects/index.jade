@@ -1,6 +1,10 @@
 extends ../layout
 block content
-  ul#trackers
-    - each project in projects
-      li
-        a(href='/projects/#{project.id}')= project.name
+  .row
+    .six
+      h1 Choose your tracker:
+    .ten
+      ul#trackers.special
+        - each project in projects
+          li
+            a(href='/projects/#{project.id}')= project.name

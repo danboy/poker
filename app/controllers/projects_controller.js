@@ -52,6 +52,18 @@ var actions = {
       app.gameSocketServers[req.params.project] = server;
     }
   }
+, stats: function(req, res){
+    if(!req.session.token){res.redirect('/')}
+    Pivotal.useToken(req.session.token);
+    Pivotal.getProject(req.params.project,function(er, project){
+      Pivotal.getIterations(req.params.project,{group: '/current_backlog'}, function(err,results){
+        res.render('projects/stats',{ 
+            project: project
+          , iterations: results
+          , title: 'Factables'});
+      });
+    });
+}
 
 }
 module.exports = actions;

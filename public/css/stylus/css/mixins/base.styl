@@ -1,9 +1,10 @@
 body
   table
     set-baseline(16px)
-    border: 1px solid form-border
     margin-bottom: (baseline/2)
+    border-collapse: separate
     tr
+      border: 1px none
       td,
       th
         border: 1px solid form-border
@@ -12,43 +13,73 @@ body
         background: #fff
       th
         background: #F9F9F9
-        text-shadow: -1px -1px 3px #EEE
       &:last-child
         th
           padding: ((baseline/4) - 1) ((baseline/2) - 1)
       &:nth-child(odd)
         td
           background: #F9F9F9
-  ol.stylish,
-  ul.stylish
+    thead:first-child tr:first-child th:first-child,
+    tbody:first-child tr:first-child td:first-child
+      border-top-left-radius: 4px
+    thead:first-child tr:first-child th:last-child,
+    tbody:first-child tr:first-child td:last-child
+      border-top-right-radius: 4px
+    thead:last-child tr:last-child th:first-child,
+    tbody:last-child tr:last-child td:first-child,
+    tfoot:last-child tr:last-child td:first-child
+      border-bottom-left-radius: 4px
+    thead:last-child tr:last-child th:last-child,
+    tbody:last-child tr:last-child td:last-child,
+    tfoot:last-child tr:last-child td:last-child
+      border-bottom-right-radius: 4px
+    thead tr:nth-child(n+1) td,
+    tbody tr:nth-child(n+1) td
+      border-top: 0 none
+    tfoot tr td
+      border-top: none
+    thead tr th:nth-child(n+2),
+    tbody tr td:nth-child(n+2),
+    tfoot tr td:nth-child(n+2)
+      border-left: 0 none
+  ol.fancy,
+  ul.fancy
     margin: 0
     padding: 0
     li
       set-baseline(16px)
-    li::marker
+      list-style: none
+    li:before
+      display: marker
       content: '☛'
-      font-style: italic
       margin: 0 (baseline/4)
       color: #666
       text-shadow: -1px -1px 3px #EEE
-  ol
+  ol.fancy
     counter-reset: list
-    li::marker
+    li:before
       counter-increment: list
       content: counter(list)'. '
       font-style: italic
-      margin: 0 (baseline/4)
-      color: #666
-      text-shadow: -1px -1px 3px #EEE
-  menu
+  ul.special
+    margin: 0
+    padding: 0
+    border-top: 1px solid #EEE
+    margin-bottom: (baseline - 1)
     li
-      border-radius: none
       list-style: none
-      display: inline-block
-      padding: 0 (baseline/4)
-      set-baseline(12px)
-      border: 1px solid #333
-      background-color: #EEE
-      &:first-child
-        border-radius-top-left: 3px
+      set-baseline(16px)
+      margin: 0
+      padding: 0
+      height: ((baseline*2) - 1)
+      border-bottom: 1px solid #EEE
+      border-right: 1px solid #EEE
+      &:before
+        content: ''
+        display: inline-block
+        background-color: link-color
+        width: 5px
+        height: (baseline * 2)
+        vertical-align: middle
+        margin: 0 (baseline/2) 0 0 
 

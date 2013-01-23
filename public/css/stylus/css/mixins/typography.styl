@@ -1,7 +1,10 @@
 set-baseline(font-size=14px)
   margin: 0 0 baseline
+  padding: 0
   line-height: baseline
   font-size: font-size
+  vertical-align: "baseline"
+  white-space: normal
   if font-size > baseline
     line-height: (baseline*2)
 
@@ -20,6 +23,12 @@ h5
   set-baseline(16px)
 .cap
   margin-bottom: 0
+h2,h3
+  position: relative
+  top: 1px
+p,ul,ol,label,pre
+  position: relative
+  top: 4px
 *,
 pre
   padding: 0;
@@ -28,12 +37,16 @@ pre
 pre
   border: 1px solid form-border
   padding: ((baseline/2) - 1)
+  margin: (baseline/2) 0
+  white-space: pre
 blockquote
   set-baseline(18px)
   border-left: (baseline/2) solid link-color
   margin-left: (baseline/2)
   padding-left: (baseline/2)
   font-weight: bold
+  position: relative
+  top: 3px
 
 h1,h2,h3,h4,h5,p
   margin: 0 0 baseline

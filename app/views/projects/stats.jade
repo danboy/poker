@@ -1,0 +1,23 @@
+extends ../layout
+block content
+  .row.stats
+    .four
+      h1=project.name
+    .four.velocity
+      h1 Current Velocity
+      h2= project.current_velocity
+    .four
+      h1 Current Iteration Number
+      h2= project.current_iteration_number
+  .row
+    .third #{iterations.iteration[0].team_strength}
+    .third#pie
+    .third#current
+block scripts
+  script( src='http://d3js.org/d3.v2.js' )
+  script( src='/js/raphael.js' )
+  script( src='/js/g.raphael.js' )
+  script( src='/js/g.pie.js' )
+  script( src='/js/statify.js' )
+  script
+    var stat = new Stat(!{JSON.stringify(iterations.iteration)})

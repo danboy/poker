@@ -11,15 +11,15 @@ mixin story(story, due)
               | points
       - else
           li.type= story.story_type
-      li= story.current_state
       li.present Start Presentation here
+      li= story.current_state
       li.card
         a( href= '/pdf/print/#{project.id}/#{story.id}') card
       li.due
         strong= due.Month
-        #{due.date}
+        = due.date
     h3= story.name
-    .description
+    pre.description
       - if(typeof(story.description) == "string")
         != replaceUrl(story.description)
       - if (story.notes)
@@ -32,18 +32,20 @@ mixin story(story, due)
                 .note!= replaceUrl(n.text)
 block content
   h1= project.name
-  ol#iterations.row
+  ol#iterations
     - each iteration in iterations
-      li.sixteen
+      li.row
         - var due = formatDate(iteration.finish);
         - var start = formatDate(iteration.start);
-        h2 #{start.Day}, #{start.Month} #{start.date}
-        - if(iteration.stories.story)
-          - if (iteration.stories.story && !iteration.stories.story.id)
-            - each story in iteration.stories.story
-              mixin story(story, due)
-          - else if (iteration.stories.story && iteration.stories.story.id)
-            mixin story(iteration.stories.story, due)
+        .six
+          h2 #{start.Day}, #{start.Month} #{start.date}
+        .ten
+          - if(iteration.stories.story)
+            - if (iteration.stories.story && !iteration.stories.story.id)
+              - each story in iteration.stories.story
+                mixin story(story, due)
+            - else if (iteration.stories.story && iteration.stories.story.id)
+              mixin story(iteration.stories.story, due)
 
 
   script(src="/js/presenter.js")
@@ -55,7 +57,8 @@ block content
       var data = JSON.parse(message.data);
       if(typeof(pres) == 'undefined')
         pres = new Presentation('.story', '#{projectId}', data.slide);
-      pres.show(data.slide);
+      if(data.instruction != 'stop')
+        pres.show(data.slide);
       switch(data.instruction){
       case 'results':
         console.log(data);

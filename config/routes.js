@@ -6,6 +6,7 @@ module.exports = {
 
     projects = require(conf.paths.controllers + '/projects_controller.js')
     Projects = app.resource("projects",projects);
+    indexResource.map('get', '/stats/:project', projects.stats)
 
     cards = require(conf.paths.controllers + '/cards_controller.js')
     Cards = app.resource("cards", cards);
